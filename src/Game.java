@@ -11,7 +11,7 @@ public class Game {
 		// Make an enemy.
 		Creature rat = new Creature("Rat", 15, 2);
 		
-		
+		new Battle(player, rat);
 	}
 
 }
