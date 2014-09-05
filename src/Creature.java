@@ -1,18 +1,27 @@
+import java.util.List;
+
 public class Creature {
 
 	private String name;
+	private String description;
 	private int health;
 	private int attack;
 	private Weapon weapon;
+	private Location location;
 
-	public Creature(String name, int health, int attack) {
+	public Creature(String name, String description, int health, int attack) {
 		this.name = name;
+		this.description = description;
 		this.health = health;
 		this.attack = attack;
 	}
 
 	public String getName() {
 		return name;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 
 	/**
@@ -24,6 +33,14 @@ public class Creature {
 
 	public Weapon getWeapon() {
 		return weapon;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
 	}
 
 	/**
@@ -40,6 +57,20 @@ public class Creature {
 		System.out.printf("%s inflicted %d damage points to %s.\n", name,
 				damage, target.getName());
 
+	}
+
+	public void look() {
+		// Should this raise an exception?
+		if (location == null) {
+			return;
+		}
+		StringBuilder builder = new StringBuilder(location.getName());
+		List<Creature> visible = location.getVisibleCreatures(this);
+		for (int i = 0; i < visible.size(); i++) {
+			builder.append('\n');
+			builder.append(visible.get(i).getDescription());
+		}
+		System.out.println(builder.toString());
 	}
 
 	public void equipWeapon(Weapon weapon) {

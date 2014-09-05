@@ -1,4 +1,3 @@
-
 public class Battle {
 
 	public Battle(Creature attacker, Creature defender) {
@@ -17,5 +16,5 @@ public class Battle {
 		}
 		System.out.printf("%s managed to kill %s.", survivor, defeated);
 	}
-	
+
 }
