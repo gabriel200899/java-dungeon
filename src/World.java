@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map {
+public class World {
 
 	private List<Location> locations;
 
-	public Map(Location startingLocation) {
+	public World(Location startingLocation) {
 		locations = new ArrayList<Location>();
 		locations.add(startingLocation);
 	}

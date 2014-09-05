@@ -14,7 +14,7 @@ public class Battle {
 			survivor = defender.getName();
 			defeated = attacker.getName();
 		}
-		System.out.printf("%s managed to kill %s.", survivor, defeated);
+		System.out.printf("%s managed to kill %s.\n", survivor, defeated);
 	}
 
 }
