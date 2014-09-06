@@ -25,7 +25,7 @@ public class Game {
         World world = new World(new Location("Training Grounds"));
 
         // Make the player character.
-        Creature player = new Creature("Dude", "You.", 1, 60, 4, CreatureID.UNKNOWN);
+        Player player = new Player();
         // The player's starting weapon.
         Weapon stick = new Weapon("Stick", 10);
         player.equipWeapon(stick);
@@ -96,7 +96,7 @@ public class Game {
     /**
      * The main game loop. Continuously prompts the player for input.
      */
-    private static void gameLoop(World world, Creature player) {
+    private static void gameLoop(World world, Player player) {
         // Print the game heading.
         printHeading();
         while (true) {
@@ -106,7 +106,7 @@ public class Game {
         }
     }
 
-    private static boolean getTurn(World world, Creature player) {
+    private static boolean getTurn(World world, Player player) {
         String input = "";
         while (true) {
             System.out.print("> ");
@@ -123,6 +123,9 @@ public class Game {
 
             } else if (input.equals("look")) {
                 player.look();
+
+            } else if (input.equals("rest")) {
+                player.rest();
 
             } else if (input.equals("status")) {
                 player.printStatus();

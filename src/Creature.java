@@ -7,8 +7,8 @@ public class Creature {
 
     private CreatureID id;
 
-    private int curHealth;
-    private int maxHealth;
+    protected int curHealth;
+    protected int maxHealth;
     private int attack;
     private int level;
 
