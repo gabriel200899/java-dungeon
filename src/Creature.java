@@ -3,15 +3,19 @@ import java.util.List;
 public class Creature {
 
 	private String name;
-	private String description;
+	private String info;
+
 	private int health;
 	private int attack;
+	private int level;
+
 	private Weapon weapon;
 	private Location location;
 
-	public Creature(String name, String description, int health, int attack) {
+	public Creature(String name, String info, int level, int health, int attack) {
 		this.name = name;
-		this.description = description;
+		this.info = info;
+		this.level = level;
 		this.health = health;
 		this.attack = attack;
 	}
@@ -20,8 +24,12 @@ public class Creature {
 		return name;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getInfo() {
+		return info;
+	}
+
+	public int getLevel() {
+		return level;
 	}
 
 	/**
@@ -68,7 +76,7 @@ public class Creature {
 		List<Creature> visible = location.getVisibleCreatures(this);
 		for (int i = 0; i < visible.size(); i++) {
 			builder.append('\n');
-			builder.append(visible.get(i).getDescription());
+			builder.append(visible.get(i).getInfo());
 		}
 		System.out.println(builder.toString());
 	}
