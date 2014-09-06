@@ -74,10 +74,10 @@ public class Creature {
 		}
 		StringBuilder builder = new StringBuilder(location.getName());
 		List<Creature> visible = location.getVisibleCreatures(this);
-		for (int i = 0; i < visible.size(); i++) {
-			builder.append('\n');
-			builder.append(visible.get(i).getInfo());
-		}
+        for (Creature visibleCreature : visible) {
+            builder.append('\n');
+            builder.append(visibleCreature.getInfo());
+        }
 		System.out.println(builder.toString());
 	}
 

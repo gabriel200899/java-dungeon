@@ -1,5 +1,4 @@
 *.class
-bin/
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -24,7 +23,8 @@ hs_err_pid*
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -56,3 +56,8 @@ $RECYCLE.BIN/
 *.classpath
 *.settings
 *.project
+
+# Quick fixes
+bin/
+.idea/
+*.iml
