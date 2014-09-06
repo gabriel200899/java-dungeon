@@ -115,31 +115,32 @@ public class Game {
 			System.out.print("> ");
 			// Get the next line of input and convert it to lower.
 			input = sc.nextLine().toLowerCase();
-			switch (input) {
-			case "time":
-				printTime();
-				break;
-			case "date":
-				printDate();
-				break;
-			case "look":
-				player.look();
-				break;
-			case "attack":
-				Creature target = getTarget(player);
-				if (target != null) {
-					new Battle(player, target);
-				}
-				break;
-			case "help":
-				printHelp();
-				break;
-			case "quit":
-			case "exit":
-				return false;
-			default:
-				System.out.println(INVALID_INPUT);
-			}
+            if (input.equals("time")) {
+                printTime();
+
+            } else if (input.equals("date")) {
+                printDate();
+
+            } else if (input.equals("look")) {
+                player.look();
+
+            } else if (input.equals("status")) {
+                player.printStatus();
+
+            } else if (input.equals("attack")) {
+                Creature target = getTarget(player);
+                if (target != null) {
+                    new Battle(player, target);
+                }
+
+            } else if (input.equals("help")) {
+                printHelp();
+
+            } else if (input.equals("quit") || input.equals("exit")) {
+                return false;
+            } else {
+                System.out.println(INVALID_INPUT);
+            }
 		}
 		return true;
 	}

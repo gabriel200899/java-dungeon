@@ -1,4 +1,7 @@
   Command List
+    Exploration
+      look                   Looks around, describing what the player sees.
+      status                 Prints the player's character current status.
     Combat
       attack                 Enters target chooser to perform an attack.
     Other

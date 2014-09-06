@@ -5,7 +5,8 @@ public class Creature {
 	private String name;
 	private String info;
 
-	private int health;
+	private int curHealth;
+    private int maxHealth;
 	private int attack;
 	private int level;
 
@@ -16,7 +17,8 @@ public class Creature {
 		this.name = name;
 		this.info = info;
 		this.level = level;
-		this.health = health;
+		this.curHealth = health;
+        this.maxHealth = health;
 		this.attack = attack;
 	}
 
@@ -36,7 +38,7 @@ public class Creature {
 	 * Checks if the creature is alive.
 	 */
 	public boolean isAlive() {
-		return health > 0;
+		return curHealth > 0;
 	}
 
 	public Weapon getWeapon() {
@@ -81,15 +83,29 @@ public class Creature {
 		System.out.println(builder.toString());
 	}
 
+    /**
+     * Output a table with the creature's status.
+     */
+    public void printStatus() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("  %-20s\n", name));
+        sb.append(String.format("  %-20s%10d\n", "Level", level));
+        sb.append(String.format("  %-20s%10s\n", "Health", String.format("%d/%d", curHealth, maxHealth)));
+        sb.append(String.format("  %-20s%10d\n", "Attack", attack));
+        sb.append(String.format("  %-20s%10s\n", "Weapon", weapon.getName()));
+        sb.append(String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage()));
+        System.out.printf(sb.toString());
+    }
+
 	public void equipWeapon(Weapon weapon) {
 		this.weapon = weapon;
 	}
 
 	private void takeDamage(int damage) {
-		if (damage > health) {
-			health = 0;
+		if (damage > curHealth) {
+			curHealth = 0;
 		} else {
-			health -= damage;
+			curHealth -= damage;
 		}
 	}
 }
