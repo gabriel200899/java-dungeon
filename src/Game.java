@@ -15,11 +15,10 @@ public class Game {
     private static final String INVALID_INPUT = "Invalid input.";
     private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
     private static final DateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
-    private static Scanner sc = new Scanner(System.in);
     private static String HELP;
+    private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-
         // Create a world.
         World world = new World(new Location("Training Grounds"));
 
@@ -36,7 +35,7 @@ public class Game {
         world.addCreature(new Rat(2));
         world.addCreature(new Wolf(1));
         world.addCreature(new Rabbit(1));
-
+        world.addCreature(new Zombie(2, new Weapon("Pipe", 8)));
         // Call a magic method that loads necessary data.
         gameInit();
 
@@ -46,6 +45,7 @@ public class Game {
 
     /**
      * Get the text of a file in the classpath.
+     *
      * @param filename the filename of the file.
      * @return a string with all the text in the file.
      */
@@ -119,6 +119,7 @@ public class Game {
         while (true) {
             // getTurn returns false if the player issued an exit command.
             if (!getTurn(world, player)) {
+                // TODO: handle player's death.
                 break;
             }
             // Remove all the dead creatures from the world.
@@ -143,6 +144,10 @@ public class Game {
 
             } else if (input.equals("look")) {
                 player.look();
+
+            } else if (input.equals("loot")) {
+                player.loot();
+                return true;
 
             } else if (input.equals("rest")) {
                 player.rest();

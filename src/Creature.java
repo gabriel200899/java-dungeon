@@ -2,13 +2,11 @@ import java.util.List;
 
 public class Creature {
 
-    private String name;
-    private String info;
-
-    private CreatureID id;
-
     protected int curHealth;
     protected int maxHealth;
+    private String name;
+    private String info;
+    private CreatureID id;
     private int attack;
     private int level;
 
@@ -38,10 +36,21 @@ public class Creature {
     }
 
     /**
-     * Checks if the creature is alive.
+     * Check if the creature is alive.
      */
     public boolean isAlive() {
         return curHealth > 0;
+    }
+
+    /**
+     * Check if the creature has no loot.
+     */
+    public boolean isEmpty() {
+        return weapon == null;
+    }
+
+    public boolean isLootable() {
+        return (!isEmpty() && !isAlive());
     }
 
     public Weapon getWeapon() {
@@ -90,14 +99,13 @@ public class Creature {
      * Output a table with the creature's status.
      */
     public void printStatus() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("  %-20s\n", name));
-        sb.append(String.format("  %-20s%10d\n", "Level", level));
-        sb.append(String.format("  %-20s%10s\n", "Health", String.format("%d/%d", curHealth, maxHealth)));
-        sb.append(String.format("  %-20s%10d\n", "Attack", attack));
-        sb.append(String.format("  %-20s%10s\n", "Weapon", weapon.getName()));
-        sb.append(String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage()));
-        System.out.printf(sb.toString());
+        System.out.printf(String.format("  %-20s\n", name) +
+                        String.format("  %-20s%10d\n", "Level", level) +
+                        String.format("  %-20s%10s\n", "Health", String.format("%d/%d", curHealth, maxHealth)) +
+                        String.format("  %-20s%10d\n", "Attack", attack) +
+                        String.format("  %-20s%10s\n", "Weapon", weapon.getName()) +
+                        String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage())
+        );
     }
 
     public void equipWeapon(Weapon weapon) {

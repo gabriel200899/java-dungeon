@@ -20,7 +20,7 @@ public class SpawnCounter {
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(CreatureID id : CreatureID.values()) {
+        for (CreatureID id : CreatureID.values()) {
             sb.append(String.format("  %-20s%10d\n", id, counters.get(id)));
         }
         return sb.toString();
