@@ -1,7 +1,6 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -10,8 +9,8 @@ import java.util.Scanner;
 
 public class Game {
 
-    private static final String HELP_PATH = System.getProperty("user.dir")
-            + "\\src\\JDHelp.txt";
+    private static final String HELP_FILENAME = "JDHelp.txt";
+    private static final String GET_TEXT_FROM_FILE_ERROR = "File could not be open.";
     private static final String TITLE = "Dungeon";
     private static final String INVALID_INPUT = "Invalid input.";
     private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
@@ -46,27 +45,45 @@ public class Game {
     }
 
     /**
-     * Initializes the game content.
+     * Get the text of a file in the classpath.
+     * @param filename the filename of the file.
+     * @return a string with all the text in the file.
+     */
+    private static String getTextFromFile(String filename) {
+        // Get the complete path of the file.
+        URL path = ClassLoader.getSystemResource(filename);
+        if (path == null) {
+            return GET_TEXT_FROM_FILE_ERROR;
+        }
+        // Make a BufferedReader from that path.
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader(new File(path.toURI())));
+        } catch (URISyntaxException e) {
+            return GET_TEXT_FROM_FILE_ERROR;
+        } catch (FileNotFoundException e) {
+            return GET_TEXT_FROM_FILE_ERROR;
+        }
+        // Make a StringBuilder and a String to hold the text.
+        StringBuilder builder = new StringBuilder();
+        String curLine;
+        try {
+            // Loop while the file has not been read completely.
+            while ((curLine = reader.readLine()) != null) {
+                builder.append(curLine).append('\n');
+            }
+        } catch (IOException e) {
+            return GET_TEXT_FROM_FILE_ERROR;
+        }
+        return builder.toString();
+    }
+
+    /**
+     * Initialize the game content.
      */
     private static void gameInit() {
         System.out.println("Initializing...");
-        try {
-            FileReader fReader = new FileReader(HELP_PATH);
-            BufferedReader bufferedReader = new BufferedReader(fReader);
-            StringBuilder stringBuilder = new StringBuilder();
-            String currentLine;
-            while ((currentLine = bufferedReader.readLine()) != null) {
-                stringBuilder.append(currentLine);
-                stringBuilder.append('\n');
-            }
-            HELP = stringBuilder.toString();
-            bufferedReader.close();
-        } catch (FileNotFoundException exception) {
-            exception.printStackTrace();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-
+        HELP = getTextFromFile(HELP_FILENAME);
         System.out.println("Successfully initialized.");
     }
 
@@ -90,7 +107,7 @@ public class Game {
     }
 
     private static void printHelp() {
-        System.out.println(HELP);
+        System.out.print(HELP);
     }
 
     /**
@@ -100,14 +117,17 @@ public class Game {
         // Print the game heading.
         printHeading();
         while (true) {
+            // getTurn returns false if the player issued an exit command.
             if (!getTurn(world, player)) {
                 break;
             }
+            // Remove all the dead creatures from the world.
+            world.removeDead();
         }
     }
 
     private static boolean getTurn(World world, Player player) {
-        String input = "";
+        String input;
         while (true) {
             System.out.print("> ");
             // Get the next line of input and convert it to lower.

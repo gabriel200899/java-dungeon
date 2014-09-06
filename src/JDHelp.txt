@@ -7,4 +7,6 @@
     Other
       time                   Get the current time.
       date                   Get the current date.
+      exit                   Exit the game.
+      quit                   Exit the game.
       spawns                 Get the spawn counters.

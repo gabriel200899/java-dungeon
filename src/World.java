@@ -19,6 +19,12 @@ public class World {
         creature.setLocation(locations.get(0));
     }
 
+    public void removeDead() {
+        for (Location worldLocation : locations) {
+            worldLocation.removeDead();
+        }
+    }
+
     public void printSpawnCounter() {
         System.out.println(spawnCounter);
     }

@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 public class Location {
 
@@ -17,6 +19,19 @@ public class Location {
 
     public void addCreature(Creature creature) {
         creatures.add(creature);
+    }
+
+    /**
+     * Remove all dead creatures in the current location.
+     */
+    public void removeDead() {
+        // To safely remove from a collection we must use an iterator.
+        Iterator<Creature> iter = creatures.iterator();
+        while (iter.hasNext()) {
+            Creature creature = iter.next();
+            if (!creature.isAlive())
+                iter.remove();
+        }
     }
 
     /**
