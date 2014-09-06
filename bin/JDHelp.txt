@@ -1,6 +1,0 @@
-  Command List
-    Combat
-      attack                 Enters target chooser to perform an attack.
-    Other
-      time                   Get the current time.
-      date                   Get the current date.
