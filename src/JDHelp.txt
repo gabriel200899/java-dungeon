@@ -7,3 +7,4 @@
     Other
       time                   Get the current time.
       date                   Get the current date.
+      spawns                 Get the spawn counters.

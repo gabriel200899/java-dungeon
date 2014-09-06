@@ -1,7 +1,7 @@
 public class Wolf extends Creature {
 
     public Wolf(int level) {
-        super("Wolf", "A ferocious wolf.", level, 25 + 5 * level, 10 + 3 * level);
+        super("Wolf", "A ferocious wolf.", level, 25 + 5 * level, 10 + 3 * level, CreatureID.WOLF);
     }
 }
 

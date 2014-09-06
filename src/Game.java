@@ -25,7 +25,7 @@ public class Game {
         World world = new World(new Location("Training Grounds"));
 
         // Make the player character.
-        Creature player = new Creature("Dude", "You.", 1, 60, 4);
+        Creature player = new Creature("Dude", "You.", 1, 60, 4, CreatureID.UNKNOWN);
         // The player's starting weapon.
         Weapon stick = new Weapon("Stick", 10);
         player.equipWeapon(stick);
@@ -34,7 +34,7 @@ public class Game {
         world.addCreature(player);
 
         // Make an enemy and add it to the map.
-        world.addCreature(new Creature("Rat", "A nasty black rat.", 1, 15, 2));
+        world.addCreature(new Rat(2));
         world.addCreature(new Wolf(1));
         world.addCreature(new Rabbit(1));
 
@@ -100,16 +100,15 @@ public class Game {
         // Print the game heading.
         printHeading();
         while (true) {
-            if (!getTurn(player)) {
+            if (!getTurn(world, player)) {
                 break;
             }
         }
     }
 
-    private static boolean getTurn(Creature player) {
+    private static boolean getTurn(World world, Creature player) {
         String input = "";
-        boolean done = false;
-        while (!done) {
+        while (true) {
             System.out.print("> ");
             // Get the next line of input and convert it to lower.
             input = sc.nextLine().toLowerCase();
@@ -118,6 +117,9 @@ public class Game {
 
             } else if (input.equals("date")) {
                 printDate();
+
+            } else if (input.equals("spawns")) {
+                world.printSpawnCounter();
 
             } else if (input.equals("look")) {
                 player.look();
@@ -129,6 +131,7 @@ public class Game {
                 Creature target = getTarget(player);
                 if (target != null) {
                     new Battle(player, target);
+                    return true;
                 }
 
             } else if (input.equals("help")) {
@@ -140,7 +143,6 @@ public class Game {
                 System.out.println(INVALID_INPUT);
             }
         }
-        return true;
     }
 
     /**
@@ -154,13 +156,12 @@ public class Game {
                 player);
 
         for (int i = 1; i - 1 < visible.size(); i++) {
-            builder.append(i + ". " + visible.get(i - 1).getName() + "\n");
+            builder.append(i).append(". ").append(visible.get(i - 1).getName()).append("\n");
         }
 
         System.out.print(builder.toString());
 
-        int index = -1;
-
+        int index;
         while (true) {
             System.out.print("> ");
             try {
