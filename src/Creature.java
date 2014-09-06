@@ -2,86 +2,86 @@ import java.util.List;
 
 public class Creature {
 
-	private String name;
-	private String info;
+    private String name;
+    private String info;
 
-	private int curHealth;
+    private int curHealth;
     private int maxHealth;
-	private int attack;
-	private int level;
+    private int attack;
+    private int level;
 
-	private Weapon weapon;
-	private Location location;
+    private Weapon weapon;
+    private Location location;
 
-	public Creature(String name, String info, int level, int health, int attack) {
-		this.name = name;
-		this.info = info;
-		this.level = level;
-		this.curHealth = health;
+    public Creature(String name, String info, int level, int health, int attack) {
+        this.name = name;
+        this.info = info;
+        this.level = level;
+        this.curHealth = health;
         this.maxHealth = health;
-		this.attack = attack;
-	}
+        this.attack = attack;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getInfo() {
-		return info;
-	}
+    public String getInfo() {
+        return info;
+    }
 
-	public int getLevel() {
-		return level;
-	}
+    public int getLevel() {
+        return level;
+    }
 
-	/**
-	 * Checks if the creature is alive.
-	 */
-	public boolean isAlive() {
-		return curHealth > 0;
-	}
+    /**
+     * Checks if the creature is alive.
+     */
+    public boolean isAlive() {
+        return curHealth > 0;
+    }
 
-	public Weapon getWeapon() {
-		return weapon;
-	}
+    public Weapon getWeapon() {
+        return weapon;
+    }
 
-	public Location getLocation() {
-		return location;
-	}
+    public Location getLocation() {
+        return location;
+    }
 
-	public void setLocation(Location location) {
-		this.location = location;
-	}
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
-	/**
-	 * Attack a target. If the creature has a weapon, it will be used to perform
-	 * the attack. Otherwise, the creature will attack with its bare hands.
-	 */
-	public void attack(Creature target) {
-		int damage;
-		if (weapon != null)
-			damage = weapon.getDamage();
-		else
-			damage = attack;
-		target.takeDamage(damage);
-		System.out.printf("%s inflicted %d damage points to %s.\n", name,
-				damage, target.getName());
+    /**
+     * Attack a target. If the creature has a weapon, it will be used to perform
+     * the attack. Otherwise, the creature will attack with its bare hands.
+     */
+    public void attack(Creature target) {
+        int damage;
+        if (weapon != null)
+            damage = weapon.getDamage();
+        else
+            damage = attack;
+        target.takeDamage(damage);
+        System.out.printf("%s inflicted %d damage points to %s.\n", name,
+                damage, target.getName());
 
-	}
+    }
 
-	public void look() {
-		// Should this raise an exception?
-		if (location == null) {
-			return;
-		}
-		StringBuilder builder = new StringBuilder(location.getName());
-		List<Creature> visible = location.getVisibleCreatures(this);
+    public void look() {
+        // Should this raise an exception?
+        if (location == null) {
+            return;
+        }
+        StringBuilder builder = new StringBuilder(location.getName());
+        List<Creature> visible = location.getVisibleCreatures(this);
         for (Creature visibleCreature : visible) {
             builder.append('\n');
             builder.append(visibleCreature.getInfo());
         }
-		System.out.println(builder.toString());
-	}
+        System.out.println(builder.toString());
+    }
 
     /**
      * Output a table with the creature's status.
@@ -97,15 +97,15 @@ public class Creature {
         System.out.printf(sb.toString());
     }
 
-	public void equipWeapon(Weapon weapon) {
-		this.weapon = weapon;
-	}
+    public void equipWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
 
-	private void takeDamage(int damage) {
-		if (damage > curHealth) {
-			curHealth = 0;
-		} else {
-			curHealth -= damage;
-		}
-	}
+    private void takeDamage(int damage) {
+        if (damage > curHealth) {
+            curHealth = 0;
+        } else {
+            curHealth -= damage;
+        }
+    }
 }

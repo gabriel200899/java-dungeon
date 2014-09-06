@@ -10,111 +10,109 @@ import java.util.Scanner;
 
 public class Game {
 
-	private static Scanner sc = new Scanner(System.in);
+    private static final String HELP_PATH = System.getProperty("user.dir")
+            + "\\src\\JDHelp.txt";
+    private static final String TITLE = "Dungeon";
+    private static final String INVALID_INPUT = "Invalid input.";
+    private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
+    private static final DateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
+    private static Scanner sc = new Scanner(System.in);
+    private static String HELP;
 
-	private static String HELP;
-	private static final String HELP_PATH = System.getProperty("user.dir")
-			+ "\\src\\JDHelp.txt";
+    public static void main(String[] args) {
 
-	private static final String TITLE = "Dungeon";
-	private static final String INVALID_INPUT = "Invalid input.";
-	private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
-	private static final DateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
+        // Create a world.
+        World world = new World(new Location("Training Grounds"));
 
-	public static void main(String[] args) {
+        // Make the player character.
+        Creature player = new Creature("Dude", "You.", 1, 60, 4);
+        // The player's starting weapon.
+        Weapon stick = new Weapon("Stick", 10);
+        player.equipWeapon(stick);
 
-		// Create a world.
-		World world = new World(new Location("Training Grounds"));
+        // Add it to the world's starting location.
+        world.addCreature(player);
 
-		// Make the player character.
-		Creature player = new Creature("Dude", "You.", 1, 60, 4);
-		// The player's starting weapon.
-		Weapon stick = new Weapon("Stick", 10);
-		player.equipWeapon(stick);
+        // Make an enemy and add it to the map.
+        world.addCreature(new Creature("Rat", "A nasty black rat.", 1, 15, 2));
+        world.addCreature(new Wolf(1));
+        world.addCreature(new Rabbit(1));
 
-		// Add it to the world's starting location.
-		world.addCreature(player);
+        // Call a magic method that loads necessary data.
+        gameInit();
 
-		// Make an enemy and add it to the map.
-		world.addCreature(new Creature("Rat", "A nasty black rat.", 1, 15, 2));
-		world.addCreature(new Wolf(1));
-		world.addCreature(new Rabbit(1));
+        // Enter the loop with the world created.
+        gameLoop(world, player);
+    }
 
-		// Call a magic method that loads necessary data.
-		gameInit();
+    /**
+     * Initializes the game content.
+     */
+    private static void gameInit() {
+        System.out.println("Initializing...");
+        try {
+            FileReader fReader = new FileReader(HELP_PATH);
+            BufferedReader bufferedReader = new BufferedReader(fReader);
+            StringBuilder stringBuilder = new StringBuilder();
+            String currentLine;
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                stringBuilder.append(currentLine);
+                stringBuilder.append('\n');
+            }
+            HELP = stringBuilder.toString();
+            bufferedReader.close();
+        } catch (FileNotFoundException exception) {
+            exception.printStackTrace();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
-		// Enter the loop with the world created.
-		gameLoop(world, player);
-	}
+        System.out.println("Successfully initialized.");
+    }
 
-	/**
-	 * Initializes the game content.
-	 */
-	private static void gameInit() {
-		System.out.println("Initializing...");
-		try {
-			FileReader fReader = new FileReader(HELP_PATH);
-			BufferedReader bufferedReader = new BufferedReader(fReader);
-			StringBuilder stringBuilder = new StringBuilder();
-			String currentLine;
-			while ((currentLine = bufferedReader.readLine()) != null) {
-				stringBuilder.append(currentLine);
-				stringBuilder.append('\n');
-			}
-			HELP = stringBuilder.toString();
-			bufferedReader.close();
-		} catch (FileNotFoundException exception) {
-			exception.printStackTrace();
-		} catch (IOException exception) {
-			exception.printStackTrace();
-		}
+    private static void printHeading() {
+        StringBuilder heading = new StringBuilder();
+        for (int i = 0; i < 5; i++)
+            heading.append(' ');
+        for (int i = 0; i < 70; i++)
+            heading.append('=');
+        heading.append('\n');
+        for (int i = 0; i < 37; i++)
+            heading.append(' ');
+        heading.append(TITLE);
+        heading.append('\n');
+        for (int i = 0; i < 5; i++)
+            heading.append(' ');
+        for (int i = 0; i < 70; i++)
+            heading.append('=');
+        heading.append('\n');
+        System.out.print(heading.toString());
+    }
 
-		System.out.println("Successfully initialized.");
-	}
+    private static void printHelp() {
+        System.out.println(HELP);
+    }
 
-	private static void printHeading() {
-		StringBuilder heading = new StringBuilder();
-		for (int i = 0; i < 5; i++)
-			heading.append(' ');
-		for (int i = 0; i < 70; i++)
-			heading.append('=');
-		heading.append('\n');
-		for (int i = 0; i < 37; i++)
-			heading.append(' ');
-		heading.append(TITLE);
-		heading.append('\n');
-		for (int i = 0; i < 5; i++)
-			heading.append(' ');
-		for (int i = 0; i < 70; i++)
-			heading.append('=');
-		heading.append('\n');
-		System.out.print(heading.toString());
-	}
+    /**
+     * The main game loop. Continuously prompts the player for input.
+     */
+    private static void gameLoop(World world, Creature player) {
+        // Print the game heading.
+        printHeading();
+        while (true) {
+            if (!getTurn(player)) {
+                break;
+            }
+        }
+    }
 
-	private static void printHelp() {
-		System.out.println(HELP);
-	}
-
-	/**
-	 * The main game loop. Continuously prompts the player for input.
-	 */
-	private static void gameLoop(World world, Creature player) {
-		// Print the game heading.
-		printHeading();
-		while (true) {
-			if (!getTurn(player)) {
-				break;
-			}
-		}
-	}
-
-	private static boolean getTurn(Creature player) {
-		String input = "";
-		boolean done = false;
-		while (!done) {
-			System.out.print("> ");
-			// Get the next line of input and convert it to lower.
-			input = sc.nextLine().toLowerCase();
+    private static boolean getTurn(Creature player) {
+        String input = "";
+        boolean done = false;
+        while (!done) {
+            System.out.print("> ");
+            // Get the next line of input and convert it to lower.
+            input = sc.nextLine().toLowerCase();
             if (input.equals("time")) {
                 printTime();
 
@@ -141,57 +139,57 @@ public class Game {
             } else {
                 System.out.println(INVALID_INPUT);
             }
-		}
-		return true;
-	}
+        }
+        return true;
+    }
 
-	/**
-	 * Let the player choose a target to attack.
-	 */
-	private static Creature getTarget(Creature player) {
-		StringBuilder builder = new StringBuilder();
-		builder.append("0. Abort\n");
+    /**
+     * Let the player choose a target to attack.
+     */
+    private static Creature getTarget(Creature player) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("0. Abort\n");
 
-		List<Creature> visible = player.getLocation().getVisibleCreatures(
-				player);
+        List<Creature> visible = player.getLocation().getVisibleCreatures(
+                player);
 
-		for (int i = 1; i - 1 < visible.size(); i++) {
-			builder.append(i + ". " + visible.get(i - 1).getName() + "\n");
-		}
+        for (int i = 1; i - 1 < visible.size(); i++) {
+            builder.append(i + ". " + visible.get(i - 1).getName() + "\n");
+        }
 
-		System.out.print(builder.toString());
+        System.out.print(builder.toString());
 
-		int index = -1;
+        int index = -1;
 
-		while (true) {
-			System.out.print("> ");
-			try {
-				index = Integer.parseInt(sc.nextLine());
-			} catch (NumberFormatException exception) {
-				System.out.println(INVALID_INPUT);
-				continue;
-			}
-			if (0 <= index && index <= visible.size())
-				break;
-			System.out.println(INVALID_INPUT);
-		}
-		if (index == 0)
-			return null;
-		return visible.get(index - 1);
-	}
+        while (true) {
+            System.out.print("> ");
+            try {
+                index = Integer.parseInt(sc.nextLine());
+            } catch (NumberFormatException exception) {
+                System.out.println(INVALID_INPUT);
+                continue;
+            }
+            if (0 <= index && index <= visible.size())
+                break;
+            System.out.println(INVALID_INPUT);
+        }
+        if (index == 0)
+            return null;
+        return visible.get(index - 1);
+    }
 
-	/**
-	 * Print the current time according to the final SimpleDateFormat TIME.
-	 */
-	private static void printTime() {
-		System.out.println(TIME.format(new Date()));
-	}
+    /**
+     * Print the current time according to the final SimpleDateFormat TIME.
+     */
+    private static void printTime() {
+        System.out.println(TIME.format(new Date()));
+    }
 
-	/**
-	 * Print the current date according to the final SimpleDateFormat DATE.
-	 */
-	private static void printDate() {
-		System.out.println(DATE.format(new Date()));
-	}
+    /**
+     * Print the current date according to the final SimpleDateFormat DATE.
+     */
+    private static void printDate() {
+        System.out.println(DATE.format(new Date()));
+    }
 
 }
