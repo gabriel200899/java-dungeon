@@ -1,3 +1,4 @@
+
 import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -12,11 +13,11 @@ public class Game {
     private static final String HELP_FILENAME = "JDHelp.txt";
     private static final String GET_TEXT_FROM_FILE_ERROR = "File could not be open.";
     private static final String TITLE = "Dungeon";
-    private static final String INVALID_INPUT = "Invalid input.";
+    public static final String INVALID_INPUT = "Invalid input.";
     private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
     private static final DateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
     private static String HELP;
-    private static Scanner sc = new Scanner(System.in);
+    public static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         // Create a world.
@@ -89,19 +90,24 @@ public class Game {
 
     private static void printHeading() {
         StringBuilder heading = new StringBuilder();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++) {
             heading.append(' ');
-        for (int i = 0; i < 70; i++)
+        }
+        for (int i = 0; i < 70; i++) {
             heading.append('=');
+        }
         heading.append('\n');
-        for (int i = 0; i < 37; i++)
+        for (int i = 0; i < 37; i++) {
             heading.append(' ');
+        }
         heading.append(TITLE);
         heading.append('\n');
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++) {
             heading.append(' ');
-        for (int i = 0; i < 70; i++)
+        }
+        for (int i = 0; i < 70; i++) {
             heading.append('=');
+        }
         heading.append('\n');
         System.out.print(heading.toString());
     }
@@ -146,7 +152,7 @@ public class Game {
                 player.look();
 
             } else if (input.equals("loot")) {
-                player.loot();
+                player.lootWeapon();
                 return true;
 
             } else if (input.equals("rest")) {
@@ -198,12 +204,14 @@ public class Game {
                 System.out.println(INVALID_INPUT);
                 continue;
             }
-            if (0 <= index && index <= visible.size())
+            if (0 <= index && index <= visible.size()) {
                 break;
+            }
             System.out.println(INVALID_INPUT);
         }
-        if (index == 0)
+        if (index == 0) {
             return null;
+        }
         return visible.get(index - 1);
     }
 

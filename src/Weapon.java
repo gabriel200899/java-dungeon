@@ -1,14 +1,11 @@
-public class Weapon {
-    private String name;
+
+public class Weapon extends Item {
+
     private int damage;
 
     public Weapon(String name, int damage) {
-        this.name = name;
+        super(name);
         this.damage = damage;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getDamage() {

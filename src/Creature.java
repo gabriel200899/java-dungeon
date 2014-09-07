@@ -1,3 +1,4 @@
+
 import java.util.List;
 
 public class Creature {
@@ -57,6 +58,18 @@ public class Creature {
         return weapon;
     }
 
+    /**
+     * Disarm the creature. Placing its current weapon, if any, in the ground.
+     */
+    public void dropWeapon() {
+        location.addItem(weapon);
+        weapon = null;
+    }
+
+    public void equipWeapon(Weapon weapon) {
+        this.weapon = weapon;
+    }
+
     public Location getLocation() {
         return location;
     }
@@ -66,15 +79,16 @@ public class Creature {
     }
 
     /**
-     * Attack a target. If the creature has a weapon, it will be used to perform
-     * the attack. Otherwise, the creature will attack with its bare hands.
+     * Attack a target. If the creature has a weapon, it will be used to perform the attack. Otherwise, the creature
+     * will attack with its bare hands.
      */
     public void attack(Creature target) {
         int damage;
-        if (weapon != null)
+        if (weapon != null) {
             damage = weapon.getDamage();
-        else
+        } else {
             damage = attack;
+        }
         target.takeDamage(damage);
         System.out.printf("%s inflicted %d damage points to %s.\n", name,
                 damage, target.getName());
@@ -99,17 +113,13 @@ public class Creature {
      * Output a table with the creature's status.
      */
     public void printStatus() {
-        System.out.printf(String.format("  %-20s\n", name) +
-                        String.format("  %-20s%10d\n", "Level", level) +
-                        String.format("  %-20s%10s\n", "Health", String.format("%d/%d", curHealth, maxHealth)) +
-                        String.format("  %-20s%10d\n", "Attack", attack) +
-                        String.format("  %-20s%10s\n", "Weapon", weapon.getName()) +
-                        String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage())
+        System.out.printf(String.format("  %-20s\n", name)
+                + String.format("  %-20s%10d\n", "Level", level)
+                + String.format("  %-20s%10s\n", "Health", String.format("%d/%d", curHealth, maxHealth))
+                + String.format("  %-20s%10d\n", "Attack", attack)
+                + String.format("  %-20s%10s\n", "Weapon", weapon.getName())
+                + String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage())
         );
-    }
-
-    public void equipWeapon(Weapon weapon) {
-        this.weapon = weapon;
     }
 
     private void takeDamage(int damage) {

@@ -1,10 +1,12 @@
+
 public class Battle {
 
     public Battle(Creature attacker, Creature defender) {
         while (attacker.isAlive() && defender.isAlive()) {
             attacker.attack(defender);
-            if (defender.isAlive())
+            if (defender.isAlive()) {
                 defender.attack(attacker);
+            }
         }
         String survivor, defeated;
         if (attacker.isAlive()) {

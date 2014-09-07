@@ -1,3 +1,4 @@
+
 public class Wolf extends Creature {
 
     public Wolf(int level) {

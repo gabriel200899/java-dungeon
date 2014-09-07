@@ -1,3 +1,4 @@
+
 import java.util.HashMap;
 
 /**
@@ -12,10 +13,11 @@ public class SpawnCounter {
     }
 
     public void incrementCreatureCounter(CreatureID id) {
-        if (counters.containsKey(id))
+        if (counters.containsKey(id)) {
             counters.put(id, counters.get(id) + 1);
-        else
+        } else {
             counters.put(id, 1);
+        }
     }
 
     public String toString() {

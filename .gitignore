@@ -61,3 +61,4 @@ $RECYCLE.BIN/
 bin/
 .idea/
 *.iml
+/build/
