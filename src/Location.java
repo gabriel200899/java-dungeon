@@ -72,17 +72,4 @@ public class Location {
         // Currently, all dropped items are visible.
         return items;
     }
-
-    /**
-     * Return a list with all the lootable creatures.
-     */
-    public List<Creature> getLootableCreatures(Creature observer) {
-        List<Creature> lootable = new ArrayList<Creature>();
-        for (Creature next : getVisibleCreatures(observer)) {
-            if (next.isLootable()) {
-                lootable.add(next);
-            }
-        }
-        return lootable;
-    }
 }

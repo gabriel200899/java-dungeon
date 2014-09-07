@@ -1,5 +1,4 @@
 
-import java.util.List;
 
 public class Creature {
 
@@ -7,7 +6,7 @@ public class Creature {
     protected int maxHealth;
     private String name;
     private String info;
-    private CreatureID id;
+    private final CreatureID id;
     private int attack;
     private int level;
 
@@ -95,25 +94,11 @@ public class Creature {
 
     }
 
-    public void look() {
-        // Should this raise an exception?
-        if (location == null) {
-            return;
-        }
-        StringBuilder builder = new StringBuilder(location.getName());
-        List<Creature> visible = location.getVisibleCreatures(this);
-        for (Creature visibleCreature : visible) {
-            builder.append('\n');
-            builder.append(visibleCreature.getInfo());
-        }
-        System.out.println(builder.toString());
-    }
-
     /**
      * Output a table with the creature's status.
      */
     public void printStatus() {
-        System.out.printf(String.format("  %-20s\n", name)
+        System.out.printf(String.format("  %s (%s)\n", name, this.id)
                 + String.format("  %-20s%10d\n", "Level", level)
                 + String.format("  %-20s%10s\n", "Health", String.format("%d/%d", curHealth, maxHealth))
                 + String.format("  %-20s%10d\n", "Attack", attack)

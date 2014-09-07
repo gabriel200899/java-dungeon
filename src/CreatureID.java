@@ -4,14 +4,15 @@
  */
 public enum CreatureID {
 
-    UNKNOWN("Unknown"), WOLF("Wolf"), RABBIT("Rabbit"), RAT("Rat"), ZOMBIE("Zombie");
+    UNKNOWN("Unknown"), WOLF("Wolf"), RABBIT("Rabbit"), RAT("Rat"), ZOMBIE("Zombie"), MAGE("Mage");
 
-    private String stringRepresentation;
+    private final String stringRepresentation;
 
     CreatureID(String stringRepresentation) {
         this.stringRepresentation = stringRepresentation;
     }
 
+    @Override
     public String toString() {
         return stringRepresentation;
     }

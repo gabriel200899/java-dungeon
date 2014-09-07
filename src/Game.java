@@ -4,40 +4,59 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 public class Game {
 
-    private static final String HELP_FILENAME = "JDHelp.txt";
-    private static final String GET_TEXT_FROM_FILE_ERROR = "File could not be open.";
     private static final String TITLE = "Dungeon";
-    public static final String INVALID_INPUT = "Invalid input.";
+    private static final String HELP_FILENAME = "JDHelp.txt";
+
+    // DateFormats for time and date printing.
     private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
     private static final DateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
-    private static String HELP;
+
+    // The only Scanner object of the program.
     public static final Scanner sc = new Scanner(System.in);
+
+    public static final String INVALID_INPUT = "Invalid input.";
+    private static final String GET_TEXT_FROM_FILE_ERROR = "File could not be open.\n";
+
+    public static final char LINE_CHAR = '-';
+    public static final int LINE_SIZE = 80;
+    public static String LINE;
 
     public static void main(String[] args) {
         // Create a world.
         World world = new World(new Location("Training Grounds"));
 
         // Make the player character.
-        Player player = new Player();
+        Mage player = new Mage("Seth", "A tall mage wearing a black robe.");
+        
         // The player's starting weapon.
         Weapon stick = new Weapon("Stick", 10);
         player.equipWeapon(stick);
 
         // Add it to the world's starting location.
         world.addCreature(player);
+        
+        // Place a nice sword on the floor.
+        player.getLocation().addItem(new Weapon ("Longsword", 18));
 
-        // Make an enemy and add it to the map.
+        // Make some enemies and add them to the map.
         world.addCreature(new Rat(2));
         world.addCreature(new Wolf(1));
         world.addCreature(new Rabbit(1));
         world.addCreature(new Zombie(2, new Weapon("Pipe", 8)));
-        // Call a magic method that loads necessary data.
+        
+        // Create another mage.
+        Mage anotherMage = new Mage(1);
+        anotherMage.equipWeapon(new Weapon("Long Staff", 14));
+        world.addCreature(anotherMage);
+
+        // Prepare and load all necessary data.
         gameInit();
 
         // Enter the loop with the world created.
@@ -45,46 +64,14 @@ public class Game {
     }
 
     /**
-     * Get the text of a file in the classpath.
-     *
-     * @param filename the filename of the file.
-     * @return a string with all the text in the file.
-     */
-    private static String getTextFromFile(String filename) {
-        // Get the complete path of the file.
-        URL path = ClassLoader.getSystemResource(filename);
-        if (path == null) {
-            return GET_TEXT_FROM_FILE_ERROR;
-        }
-        // Make a BufferedReader from that path.
-        BufferedReader reader;
-        try {
-            reader = new BufferedReader(new FileReader(new File(path.toURI())));
-        } catch (URISyntaxException e) {
-            return GET_TEXT_FROM_FILE_ERROR;
-        } catch (FileNotFoundException e) {
-            return GET_TEXT_FROM_FILE_ERROR;
-        }
-        // Make a StringBuilder and a String to hold the text.
-        StringBuilder builder = new StringBuilder();
-        String curLine;
-        try {
-            // Loop while the file has not been read completely.
-            while ((curLine = reader.readLine()) != null) {
-                builder.append(curLine).append('\n');
-            }
-        } catch (IOException e) {
-            return GET_TEXT_FROM_FILE_ERROR;
-        }
-        return builder.toString();
-    }
-
-    /**
      * Initialize the game content.
      */
     private static void gameInit() {
         System.out.println("Initializing...");
-        HELP = getTextFromFile(HELP_FILENAME);
+        // Initialize the separator line.
+        char[] lineArray = new char[LINE_SIZE];
+        Arrays.fill(lineArray, LINE_CHAR);
+        LINE = new String(lineArray);
         System.out.println("Successfully initialized.");
     }
 
@@ -111,15 +98,11 @@ public class Game {
         heading.append('\n');
         System.out.print(heading.toString());
     }
-
-    private static void printHelp() {
-        System.out.print(HELP);
-    }
-
+    
     /**
      * The main game loop. Continuously prompts the player for input.
      */
-    private static void gameLoop(World world, Player player) {
+    private static void gameLoop(World world, Mage player) {
         // Print the game heading.
         printHeading();
         while (true) {
@@ -133,48 +116,50 @@ public class Game {
         }
     }
 
-    private static boolean getTurn(World world, Player player) {
+    private static boolean getTurn(World world, Mage player) {
         String input;
         while (true) {
             System.out.print("> ");
             // Get the next line of input and convert it to lower.
             input = sc.nextLine().toLowerCase();
-            if (input.equals("time")) {
-                printTime();
-
-            } else if (input.equals("date")) {
-                printDate();
-
-            } else if (input.equals("spawns")) {
-                world.printSpawnCounter();
-
-            } else if (input.equals("look")) {
-                player.look();
-
-            } else if (input.equals("loot")) {
-                player.lootWeapon();
-                return true;
-
-            } else if (input.equals("rest")) {
-                player.rest();
-
-            } else if (input.equals("status")) {
-                player.printStatus();
-
-            } else if (input.equals("attack")) {
-                Creature target = getTarget(player);
-                if (target != null) {
-                    new Battle(player, target);
+            switch (input) {
+                case "time":
+                    printTime();
+                    break;
+                case "date":
+                    printDate();
+                    break;
+                case "spawns":
+                    world.printSpawnCounter();
+                    break;
+                case "look":
+                    player.look();
+                    break;
+                case "loot":
+                    player.lootWeapon();
                     return true;
-                }
-
-            } else if (input.equals("help")) {
-                printHelp();
-
-            } else if (input.equals("quit") || input.equals("exit")) {
-                return false;
-            } else {
-                System.out.println(INVALID_INPUT);
+                case "rest":
+                    player.rest();
+                    break;
+                case "status":
+                    player.printStatus();
+                    break;
+                case "attack":
+                    Creature target = getTarget(player);
+                    if (target != null) {
+                        new Battle(player, target);
+                        return true;
+                    }
+                    break;
+                case "help":
+                    Help.printCommandList();
+                    break;
+                case "quit":
+                case "exit":
+                    return false;
+                default:
+                    System.out.println(INVALID_INPUT);
+                    break;
             }
         }
     }

@@ -5,6 +5,6 @@
 public interface Playable {
 
     public void rest();
-
+    public void look();
     public void lootWeapon();
 }
