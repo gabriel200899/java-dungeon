@@ -39,4 +39,4 @@ Contributors
 Name                     |GitHub                   |E-mail
 -------------------------|-------------------------|-------------------------
 Bernardo Sulzbach        |mafagafogigante          | mafagafogigante@gmail.com
-Gabriel Bohmer           |gabriel200899            |
+Gabriel Bohmer           |gabriel200899            | gabriel.bohmer@hotmail.com
