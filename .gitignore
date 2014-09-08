@@ -4,11 +4,12 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
+# Provide the latest compiled version.
+# *.jar
 *.war
 *.ear
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# virtual machine crash logs
 hs_err_pid*
 
 # =========================
@@ -57,9 +58,13 @@ $RECYCLE.BIN/
 *.settings
 *.project
 
-# Quick fixes
-bin/
+# JetBrains
 .idea/
 *.iml
+
+# NetBeans
 /build/
-/dist/
+
+# Use dist/ to provide the latest compiled version.
+# Ignore the README.TXT it contains.
+dist/README.TXT
