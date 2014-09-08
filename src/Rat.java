@@ -5,6 +5,6 @@
 public class Rat extends Creature {
 
     public Rat(int level) {
-        super("Rat", "A nasty black rat.", level, 11 + 4 * level, 3 + 2 * level, CreatureID.RAT);
+        super("Rat", level, 11 + 4 * level, 3 + 2 * level, CreatureID.RAT);
     }
 }

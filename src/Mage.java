@@ -5,13 +5,16 @@ import java.util.List;
  * Mage class that implements the only Playable creature until now.
  */
 public class Mage extends Creature implements Playable {
-    
-    public Mage(String name, String sInfo) {
-        super(name, sInfo, 1, 60, 5, CreatureID.MAGE);
-    }
-    
+
+    private static final String name = "Mage";
+
     public Mage(int level) {
-        super("Mage", "A mage.", level, 40 + 8 * level, 4 + 2 * level, CreatureID.MAGE);
+        super(name, level, 40 + 8 * level, 4 + 2 * level, CreatureID.MAGE);
+    }
+
+    public Mage(int level, Weapon weapon) {
+        super(name, level, 40 + 8 * level, 4 + 2 * level, CreatureID.MAGE);
+        equipWeapon(weapon);
     }
 
     /**
@@ -55,7 +58,7 @@ public class Mage extends Creature implements Playable {
         builder.append('\n').append(Game.LINE);
         System.out.println(builder.toString());
     }
-    
+
     private String lookCreatures() {
         StringBuilder builder = new StringBuilder();
         List<Creature> visibleCreatures = getLocation().getVisibleCreatures(this);
@@ -68,7 +71,7 @@ public class Mage extends Creature implements Playable {
         }
         return builder.toString();
     }
-    
+
     private String lookItems() {
         StringBuilder builder = new StringBuilder();
         List<Weapon> visibleWeapons = getLocation().getVisibleWeapons();
@@ -94,7 +97,7 @@ public class Mage extends Creature implements Playable {
             equipWeapon(visibleWeapons.get(selectedIndex));
             getLocation().removeItem(visibleWeapons.get(selectedIndex));
         }
-        
+
     }
 
     /**
@@ -131,7 +134,7 @@ public class Mage extends Creature implements Playable {
             System.out.println(Game.INVALID_INPUT);
         }
         return index - 1;
-        
+
     }
 
     /**
@@ -147,5 +150,5 @@ public class Mage extends Creature implements Playable {
     private String toSelectionEntry(Weapon weapon) {
         return String.format("%-20s (%d)", weapon.getName(), weapon.getDamage());
     }
-    
+
 }

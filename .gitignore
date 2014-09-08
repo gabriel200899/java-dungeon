@@ -7,7 +7,7 @@ nbbuild/
 # Keep this .jars in our repository.
 # dist/
 # Ignore that README.txt NetBeans makes
-dist/README.txt
+dist/README.TXT
 nbdist/
 nbactions.xml
 nb-configuration.xml

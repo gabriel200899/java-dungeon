@@ -24,38 +24,39 @@ public class Game {
     public static String LINE;
 
     public static void main(String[] args) {
-        // Create a world.
-        World world = new World(new Location("Training Grounds"));
+        // Get a hardcoded demo world.
+        World world = demoWorld();
 
         // Make the player character.
-        Mage player = new Mage("Seth", "A tall mage wearing a black robe.");
+        Mage player = new Mage(1, new Weapon("Stick", 6));
+        player.setName("Seth");
 
-        // The player's starting weapon.
-        Weapon stick = new Weapon("Stick", 10);
-        player.equipWeapon(stick);
-
-        // Add it to the world's starting location.
-        world.addCreature(player);
-
-        // Place a nice sword on the floor.
-        player.getLocation().addItem(new Weapon("Longsword", 18));
-
-        // Make some enemies and add them to the map.
-        world.addCreature(new Rat(2));
-        world.addCreature(new Wolf(1));
-        world.addCreature(new Rabbit(1));
-        world.addCreature(new Zombie(2, new Weapon("Pipe", 8)));
-
-        // Create another mage.
-        Mage anotherMage = new Mage(1);
-        anotherMage.equipWeapon(new Weapon("Long Staff", 14));
-        world.addCreature(anotherMage);
+        // Add the player to the world's starting location.
+        world.addCreature(player, 0);
 
         // Prepare and load all necessary data.
         gameInit();
 
         // Enter the loop with the world created.
         gameLoop(world, player);
+
+    }
+
+    private static World demoWorld() {
+        // Create a new world.
+        World world = new World(new Location("Training Grounds"));
+
+        // Add enemies to the starting location.
+        world.addCreature(new Rat(1), 0);
+        world.addCreature(new Wolf(1), 0);
+        world.addCreature(new Rabbit(1), 0);
+        world.addCreature(new Zombie(1, new Weapon("Pipe", 8)), 0);
+        world.addCreature(new Mage(1, new Weapon("Long Staff", 14)), 0);
+
+        // Add items to the starting location.
+        world.addItem(new Weapon("Longsword", 18), 0);
+
+        return world;
     }
 
     /**
@@ -107,7 +108,7 @@ public class Game {
                 break;
             }
             // Remove all the dead creatures from the world.
-            world.removeDead();
+            world.removeAllDead();
         }
     }
 

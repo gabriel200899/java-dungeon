@@ -4,7 +4,7 @@ public class Creature {
     protected int curHealth;
     protected int maxHealth;
     private String name;
-    private String info;
+
     private final CreatureID id;
     private int attack;
     private int level;
@@ -12,9 +12,8 @@ public class Creature {
     private Weapon weapon;
     private Location location;
 
-    public Creature(String name, String info, int level, int health, int attack, CreatureID id) {
+    public Creature(String name, int level, int health, int attack, CreatureID id) {
         this.name = name;
-        this.info = info;
         this.level = level;
         this.curHealth = health;
         this.maxHealth = health;
@@ -26,8 +25,8 @@ public class Creature {
         return name;
     }
 
-    public String getInfo() {
-        return info;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getLevel() {
