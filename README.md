@@ -7,7 +7,7 @@ You are invited to help me make it bigger and better.
 
 Screenshots
 -----------
-![07-09-14](https://github.com/mafagafogigante/java-dungeon/blob/latest/screenshots/07-09-14.png)
+![07-09-14](https://github.com/mafagafogigante/java-dungeon/blob/master/screenshots/07-09-14.png)
 
 
 Running the game
