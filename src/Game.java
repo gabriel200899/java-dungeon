@@ -1,7 +1,4 @@
 
-import java.io.*;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -12,7 +9,6 @@ import java.util.Scanner;
 public class Game {
 
     private static final String TITLE = "Dungeon";
-    private static final String HELP_FILENAME = "JDHelp.txt";
 
     // DateFormats for time and date printing.
     private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
@@ -22,7 +18,6 @@ public class Game {
     public static final Scanner sc = new Scanner(System.in);
 
     public static final String INVALID_INPUT = "Invalid input.";
-    private static final String GET_TEXT_FROM_FILE_ERROR = "File could not be open.\n";
 
     public static final char LINE_CHAR = '-';
     public static final int LINE_SIZE = 80;
@@ -34,23 +29,23 @@ public class Game {
 
         // Make the player character.
         Mage player = new Mage("Seth", "A tall mage wearing a black robe.");
-        
+
         // The player's starting weapon.
         Weapon stick = new Weapon("Stick", 10);
         player.equipWeapon(stick);
 
         // Add it to the world's starting location.
         world.addCreature(player);
-        
+
         // Place a nice sword on the floor.
-        player.getLocation().addItem(new Weapon ("Longsword", 18));
+        player.getLocation().addItem(new Weapon("Longsword", 18));
 
         // Make some enemies and add them to the map.
         world.addCreature(new Rat(2));
         world.addCreature(new Wolf(1));
         world.addCreature(new Rabbit(1));
         world.addCreature(new Zombie(2, new Weapon("Pipe", 8)));
-        
+
         // Create another mage.
         Mage anotherMage = new Mage(1);
         anotherMage.equipWeapon(new Weapon("Long Staff", 14));
@@ -98,7 +93,7 @@ public class Game {
         heading.append('\n');
         System.out.print(heading.toString());
     }
-    
+
     /**
      * The main game loop. Continuously prompts the player for input.
      */
@@ -117,12 +112,13 @@ public class Game {
     }
 
     private static boolean getTurn(World world, Mage player) {
-        String input;
+        String[] input;
         while (true) {
             System.out.print("> ");
-            // Get the next line of input and convert it to lower.
-            input = sc.nextLine().toLowerCase();
-            switch (input) {
+            // Get the next line of input, convert it to lowercase, trim its endings and split it into separate words.
+            input = sc.nextLine().toLowerCase().trim().split("\\s+");
+            // Currently, we only use the first word.
+            switch (input[0]) {
                 case "time":
                     printTime();
                     break;
