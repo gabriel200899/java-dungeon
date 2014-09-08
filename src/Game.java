@@ -134,6 +134,8 @@ public class Game {
                 case "loot":
                     player.lootWeapon();
                     return true;
+                case "destroy":
+                    player.destroyItem();
                 case "rest":
                     player.rest();
                     break;

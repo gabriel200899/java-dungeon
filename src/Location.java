@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Location {
 
-    private String name;
-    private List<Creature> creatures;
-    private List<Item> items;
+    private final String name;
+    private final List<Creature> creatures;
+    private final List<Item> items;
 
     public Location(String name) {
         creatures = new ArrayList<>();
@@ -49,8 +49,10 @@ public class Location {
     }
 
     /**
-     * Retrieves all visible creatures to the observer. Currently, that corresponds to all the creatures but the
-     * observer.
+     * Retrieves all visible creatures to the observer.
+     *
+     * @param observer the creature that is trying to look for other creatures.
+     * @return a list of all the visible creatures to this observer.
      */
     public List<Creature> getVisibleCreatures(Creature observer) {
         List<Creature> allButObserver = creatures;
@@ -58,6 +60,11 @@ public class Location {
         return allButObserver;
     }
 
+    /**
+     * Get a list of all visible weapons to the observer.
+     *
+     * @return a list of weapons.
+     */
     public List<Weapon> getVisibleWeapons() {
         List<Weapon> visibleWeapons = new ArrayList<>();
         for (Item visibleItem : items) {
@@ -68,8 +75,12 @@ public class Location {
         return visibleWeapons;
     }
 
+    /**
+     * Get a list of all visible items to the observer.
+     *
+     * @return a list of items.
+     */
     public List<Item> getVisibleItems() {
-        // Currently, all dropped items are visible.
         return items;
     }
 }

@@ -7,12 +7,23 @@
 public class Item {
 
     private String name;
+    private final boolean destructible;
 
     public Item(String name) {
         this.name = name;
+        this.destructible = false;
     }
 
-    public String getName() {
+    public Item(String name, boolean destructible) {
+        this.name = name;
+        this.destructible = destructible;
+    }
+
+    protected String getName() {
         return name;
+    }
+
+    public boolean isDestructible() {
+        return destructible;
     }
 }

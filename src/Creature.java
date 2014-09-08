@@ -1,5 +1,4 @@
 
-
 public class Creature {
 
     protected int curHealth;

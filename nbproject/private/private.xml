@@ -4,7 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/bernardo/NetBeansProjects/java-dungeon/src/Mage.java</file>
+            <file>file:/home/bernardo/NetBeansProjects/java-dungeon/src/Playable.java</file>
+            <file>file:/home/bernardo/NetBeansProjects/java-dungeon/src/Creature.java</file>
             <file>file:/home/bernardo/NetBeansProjects/java-dungeon/src/Game.java</file>
+            <file>file:/home/bernardo/NetBeansProjects/java-dungeon/src/Location.java</file>
         </group>
     </open-files>
 </project-private>

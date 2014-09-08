@@ -1,10 +1,11 @@
+
 public class Help {
 
     /**
      * Text displayed when the help command is issued.
      */
-    public static final String COMMAND_LIST = 
-              "  Command List\n"
+    public static final String COMMAND_LIST
+            = "  Command List\n"
             + "    Exploration\n"
             + "      look                   Looks around, describing what the player sees.\n"
             + "      status                 Prints the player's character current status.\n"
@@ -16,7 +17,7 @@ public class Help {
             + "      exit                   Exit the game.\n"
             + "      quit                   Exit the game.\n"
             + "      spawns                 Get the spawn counters.";
-    
+
     public static void printCommandList() {
         System.out.println(COMMAND_LIST);
     }

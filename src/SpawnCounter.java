@@ -9,10 +9,10 @@ public class SpawnCounter {
     HashMap<CreatureID, Integer> counters;
 
     public SpawnCounter() {
-        counters = new HashMap<CreatureID, Integer>();
+        counters = new HashMap<>();
     }
 
-    public void incrementCreatureCounter(CreatureID id) {
+    public void incrementCounter(CreatureID id) {
         if (counters.containsKey(id)) {
             counters.put(id, counters.get(id) + 1);
         } else {
@@ -20,6 +20,7 @@ public class SpawnCounter {
         }
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (CreatureID id : CreatureID.values()) {
