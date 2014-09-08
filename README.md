@@ -1,18 +1,30 @@
 Java Dungeon
 ============
-Simple text adventure in Java.
+A simple text-based RPG using Java (7).
+<br>
+You are invited to help me make it bigger and better.
+
 
 Screenshots
 -----------
+![07-09-14](https://github.com/mafagafogigante/java-dungeon/blob/latest/screenshots/07-09-14.png)
 
 
-TODO
-----
-
+Milestones
+----------
+- [x] Get a modest screenshot on the readme.
+- [ ] Code a world with at least two locations.
+- [ ] Enable commands with two words (such as "get lamp").
 
 Trivia
 ------
 This project started on 04/09/2014 (dd/mm/yyyy).
+
+
+Code Style
+----------
+* Stick to 120 (or less) characters per line.
+* Final variables and enumeration constants should be UPPERCASE.
 
 
 Contributors
