@@ -1,70 +1,25 @@
+# Created by https://www.gitignore.io
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+# Keep this .jars in our repository.
+# dist/
+# Ignore that README.txt NetBeans makes
+dist/README.txt
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+### Java ###
 *.class
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Package Files #
-# Provide the latest compiled version.
+# Keep .jars in our repository.
 # *.jar
 *.war
 *.ear
-
-# virtual machine crash logs
-hs_err_pid*
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must ends with two \r.
-Icon
-
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Windows
-# =========================
-
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# Eclipse
-*.classpath
-*.settings
-*.project
-
-# JetBrains
-.idea/
-*.iml
-
-# NetBeans
-/build/
-
-# Use dist/ to provide the latest compiled version.
-# Ignore the README.TXT it contains.
-dist/README.TXT
