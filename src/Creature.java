@@ -84,11 +84,11 @@ public class Creature {
         if (weapon != null) {
             damage = weapon.getDamage();
             if (weapon.isMiss()) {
+                System.out.printf("%s missed.\n", name);
+            } else {
                 target.takeDamage(damage);
                 System.out.printf("%s inflicted %d damage points to %s.\n", name,
                         damage, target.getName());
-            } else {
-                System.out.printf("%s missed.\n", name);
             }
         } else {
             damage = attack;
