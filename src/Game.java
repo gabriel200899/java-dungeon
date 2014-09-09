@@ -51,7 +51,7 @@ public class Game {
         world.addCreature(new Wolf(1), 0);
         world.addCreature(new Rabbit(1), 0);
         world.addCreature(new Zombie(1, new Weapon("Pipe", 8, 10)), 0);
-        world.addCreature(new Mage(1, new Weapon("Long Staff", 14, 100)), 0);
+        world.addCreature(new Mage(1, new Weapon("Long Staff", 14, 15)), 0);
 
         // Add items to the starting location.
         world.addItem(new Weapon("Longsword", 18, 15), 0);
