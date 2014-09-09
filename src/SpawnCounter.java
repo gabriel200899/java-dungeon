@@ -26,7 +26,7 @@ public class SpawnCounter {
      */
     public void printCounters() {
         if (counters.isEmpty()) {
-            Game.output(EMPTY_SPAWN_COUNTER);
+            Game.writeString(EMPTY_SPAWN_COUNTER);
         } else {
             StringBuilder sb = new StringBuilder();
             for (CreatureID id : counters.keySet()) {
@@ -34,7 +34,7 @@ public class SpawnCounter {
             }
             // Remove the last newline character.
             sb.setLength(sb.length() - 1);
-            Game.output(sb.toString());
+            Game.writeString(sb.toString());
         }
     }
 }

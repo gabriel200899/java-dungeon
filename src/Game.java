@@ -3,6 +3,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -13,8 +14,11 @@ public class Game {
     private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
     private static final DateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
 
-    // The only Scanner object of the program.
-    public static final Scanner sc = new Scanner(System.in);
+    // The Scanner the method Game.readString() uses.
+    public static final Scanner SCANNER = new Scanner(System.in);
+
+    // The Random object used to control random events.
+    public static final Random RANDOM = new Random();
 
     public static final String INVALID_INPUT = "Invalid input.";
 
@@ -127,7 +131,7 @@ public class Game {
         while (true) {
             System.out.print("> ");
             // Get the next line of input, convert it to lowercase, trim its endings and split it into separate words.
-            input = sc.nextLine().toLowerCase().trim().split("\\s+");
+            input = SCANNER.nextLine().toLowerCase().trim().split("\\s+");
             // Currently, we only use the first word.
             switch (input[0]) {
                 case "time":
@@ -158,7 +162,7 @@ public class Game {
                 case "attack":
                     Creature target = player.selectTarget(input);
                     if (target != null) {
-                        new Battle(player, target);
+                        Game.battle(player, target);
                         if (!player.isAlive()) {
                             System.out.println("You died.");
                         }
@@ -177,6 +181,24 @@ public class Game {
         }
     }
 
+    private static void battle(Creature attacker, Creature defender) {
+        while (attacker.isAlive() && defender.isAlive()) {
+            attacker.attack(defender);
+            if (defender.isAlive()) {
+                defender.attack(attacker);
+            }
+        }
+        String survivor, defeated;
+        if (attacker.isAlive()) {
+            survivor = attacker.getName();
+            defeated = defender.getName();
+        } else {
+            survivor = defender.getName();
+            defeated = attacker.getName();
+        }
+        System.out.printf("%s managed to kill %s.\n", survivor, defeated);
+    }
+
     /**
      * Print the current time according to the final SimpleDateFormat TIME.
      */
@@ -191,13 +213,23 @@ public class Game {
         System.out.println(DATE.format(new Date()));
     }
 
+    public static String readString() {
+        String line;
+        do {
+            System.out.print("> ");
+            line = SCANNER.nextLine();
+        } while (line.equals(""));
+        return line;
+    }
+
     /**
      * Outputs a string to the console, stripping unnecessary newlines at the end.
      *
      * @param string the string to be printed.
      */
-    public static void output(String string) {
+    public static void writeString(String string) {
         while (string.endsWith("\n")) {
+            // Remove the newline.
             string = string.substring(0, string.length() - 1);
         }
         System.out.println(string);

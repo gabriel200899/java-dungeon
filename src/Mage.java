@@ -123,7 +123,7 @@ public class Mage extends Creature implements Playable {
         while (true) {
             System.out.print("> ");
             try {
-                index = Integer.parseInt(Game.sc.nextLine());
+                index = Integer.parseInt(Game.SCANNER.nextLine());
             } catch (NumberFormatException exception) {
                 System.out.println(Game.INVALID_INPUT);
                 continue;

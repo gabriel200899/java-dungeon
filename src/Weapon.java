@@ -81,7 +81,18 @@ public class Weapon extends Item {
      * @return true if the weapon will miss, false otherwise.
      */
     public final boolean isMiss() {
-        return missRate > Math.random() * 100 + 1;
+        /**
+         * Implementation info.
+         *
+         * 0, for instance, will never be greater than 0 (the smallest possible value on the right-hand side).
+         *
+         * So a missRate of 0 works as intended [isMiss always returns false].
+         *
+         * 100 will, on the other hand, always be bigger than 99 (the biggest possible value on the right-hand side).
+         *
+         * So a missRate of 100 also works as intended [isMiss always returns true].
+         */
+        return missRate > Game.RANDOM.nextInt(100);
     }
 
     /**
@@ -92,7 +103,7 @@ public class Weapon extends Item {
             curIntegrity -= hitDecrement;
         } else {
             curIntegrity = 0;
-            Game.output(getName() + " broke.");
+            Game.writeString(getName() + " broke.");
         }
     }
 

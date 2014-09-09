@@ -119,7 +119,7 @@ public class Creature {
         if (weapon != null && !weapon.isBroken()) {
             // Check if the attack is a miss.
             if (weapon.isMiss()) {
-                Game.output(name + " missed.");
+                Game.writeString(name + " missed.");
             } else {
                 hitDamage = weapon.getDamage();
                 target.takeDamage(hitDamage);
@@ -157,20 +157,19 @@ public class Creature {
         for (int i = 1; i - 1 < visible.size(); i++) {
             builder.append(i).append(". ").append(visible.get(i - 1).getName()).append("\n");
         }
-        System.out.print(builder.toString());
+        Game.writeString(builder.toString());
         int index;
         while (true) {
-            System.out.print("> ");
             try {
-                index = Integer.parseInt(Game.sc.nextLine());
+                index = Integer.parseInt(Game.readString());
             } catch (NumberFormatException exception) {
-                System.out.println(Game.INVALID_INPUT);
+                Game.writeString(Game.INVALID_INPUT);
                 continue;
             }
             if (0 <= index && index <= visible.size()) {
                 break;
             }
-            System.out.println(Game.INVALID_INPUT);
+            Game.writeString(Game.INVALID_INPUT);
         }
         if (index == 0) {
             return null;
@@ -194,7 +193,7 @@ public class Creature {
             builder.append(String.format("  %-20s%10s\n", "Weapon integrity",
                     String.format("%d/%d", weapon.getCurIntegrity(), weapon.getMaxIntegrity())));
         }
-        Game.output(builder.toString());
+        Game.writeString(builder.toString());
     }
 
 }
