@@ -3,7 +3,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 public class Game {
@@ -101,17 +100,28 @@ public class Game {
     private static void gameLoop(World world, Mage player) {
         // Print the game heading.
         printHeading();
+        //
         while (true) {
-            // getTurn returns false if the player issued an exit command.
-            if (!getTurn(world, player)) {
-                // TODO: handle player's death.
+            // 
+            if (getTurn(world, player)) {
+                // Remove all dead creatures from the world.
+                world.removeAllDead();
+                if (!player.isAlive()) {
+                    break;
+                }
+            } else {
                 break;
             }
-            // Remove all the dead creatures from the world.
-            world.removeAllDead();
         }
     }
 
+    /**
+     * Let the player play a turn.
+     *
+     * @param world
+     * @param player
+     * @return
+     */
     private static boolean getTurn(World world, Mage player) {
         String[] input;
         while (true) {
@@ -134,9 +144,10 @@ public class Game {
                     break;
                 case "loot":
                     player.lootWeapon();
-                    return true;
+                    break;
                 case "destroy":
                     player.destroyItem();
+                    break;
                 case "rest":
                     player.rest();
                     break;
@@ -148,9 +159,11 @@ public class Game {
                     Creature target = player.selectTarget(input);
                     if (target != null) {
                         new Battle(player, target);
-                        return true;
+                        if (!player.isAlive()) {
+                            System.out.println("You died.");
+                        }
                     }
-                    break;
+                    return true;
                 case "help":
                     Help.printCommandList();
                     break;
