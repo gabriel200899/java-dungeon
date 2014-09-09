@@ -137,7 +137,7 @@ public class Game {
                     printDate();
                     break;
                 case "spawns":
-                    world.printSpawnCounter();
+                    world.printSpawnCounters();
                     break;
                 case "look":
                     player.look();
@@ -189,6 +189,14 @@ public class Game {
      */
     private static void printDate() {
         System.out.println(DATE.format(new Date()));
+    }
+    
+    /**
+     * The method used for outputting strings to the console.
+     * @param string 
+     */
+    public static void output(String string) {
+        System.out.println(string);
     }
 
 }

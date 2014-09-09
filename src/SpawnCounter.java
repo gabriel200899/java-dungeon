@@ -2,10 +2,11 @@
 import java.util.HashMap;
 
 /**
- * Created by Bernardo on 06/09/2014.
+ * SpawnCounter class that is used by a World object to count its spawns.
  */
 public class SpawnCounter {
 
+    private static final String EMPTY_SPAWN_COUNTER = "The spawn counter is empty.";
     HashMap<CreatureID, Integer> counters;
 
     public SpawnCounter() {
@@ -20,12 +21,20 @@ public class SpawnCounter {
         }
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (CreatureID id : CreatureID.values()) {
-            sb.append(String.format("  %-20s%10d\n", id, counters.get(id)));
+    /**
+     * Send all the counters to the output.
+     */
+    public void printCounters() {
+        if (counters.isEmpty()) {
+            Game.output(EMPTY_SPAWN_COUNTER);
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (CreatureID id : counters.keySet()) {
+                sb.append(String.format("  %-20s%10d\n", id, counters.get(id)));
+            }
+            // Remove the last newline character.
+            sb.setLength(sb.length() - 1);
+            Game.output(sb.toString());
         }
-        return sb.toString();
     }
 }

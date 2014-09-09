@@ -53,7 +53,10 @@ public class World {
         }
     }
 
-    public void printSpawnCounter() {
-        System.out.println(spawnCounter);
+    /**
+     * Prints all the spawn counters to the console.
+     */
+    public void printSpawnCounters() {
+        spawnCounter.printCounters();
     }
 }
