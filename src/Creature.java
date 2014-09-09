@@ -116,16 +116,24 @@ public class Creature {
     public void attack(Creature target) {
         int hitDamage;
         if (weapon != null) {
-            hitDamage = weapon.getDamage();
+            // Check if the weapon is broken.
+            if (weapon.isBroken()) {
+                Game.output(weapon.getName() + " is broken");
+                return;
+            }
+            // Check if the attack will miss.
             if (weapon.isMiss()) {
                 System.out.printf("%s missed.\n", name);
             } else {
+                hitDamage = weapon.getDamage();
                 target.takeDamage(hitDamage);
+                weapon.decrementIntegrity();
                 System.out.printf("%s inflicted %d damage points to %s.\n", name, hitDamage, target.getName());
             }
         } else {
             hitDamage = this.damage;
             target.takeDamage(hitDamage);
+            weapon.decrementIntegrity();
             System.out.printf("%s inflicted %d damage points to %s.\n", name, hitDamage, target.getName());
         }
     }
@@ -179,13 +187,19 @@ public class Creature {
      * Output a table with the creature's status.
      */
     public void printStatus() {
-        System.out.printf(String.format("  %s (%s)\n", name, this.id)
-                + String.format("  %-20s%10d\n", "Level", level)
-                + String.format("  %-20s%10s\n", "Health", String.format("%d/%d", curHealth, maxHealth))
-                + String.format("  %-20s%10d\n", "Attack", damage)
-                + String.format("  %-20s%10s\n", "Weapon", weapon.getName())
-                + String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage())
-        );
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("  %s (%s)\n", name, this.id));
+        builder.append(String.format("  %-20s%10d\n", "Level", level));
+        builder.append(String.format("  %-20s%10s\n", "Health",
+                String.format("%d/%d", curHealth, maxHealth)));
+        builder.append(String.format("  %-20s%10d\n", "Attack", damage));
+        if (weapon != null) {
+            builder.append(String.format("  %-20s%10s\n", "Weapon", weapon.getName()));
+            builder.append(String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage()));
+            builder.append(String.format("  %-20s%10s\n", "Weapon integrity",
+                    String.format("%d/%d", weapon.getCurIntegrity(), weapon.getMaxIntegrity())));
+        }
+        Game.output(builder.toString());
     }
 
 }

@@ -190,12 +190,16 @@ public class Game {
     private static void printDate() {
         System.out.println(DATE.format(new Date()));
     }
-    
+
     /**
-     * The method used for outputting strings to the console.
-     * @param string 
+     * Outputs a string to the console, stripping unnecessary newlines at the end.
+     *
+     * @param string the string to be printed.
      */
     public static void output(String string) {
+        while (string.endsWith("\n")) {
+            string = string.substring(0, string.length() - 1);
+        }
         System.out.println(string);
     }
 
