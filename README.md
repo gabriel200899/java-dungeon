@@ -12,7 +12,7 @@ Screenshots
 
 Running the game
 ----------------
-1. Download [our latest JAR file.](https://github.com/mafagafogigante/java-dungeon/blob/master/dist/java-dungeon.jar).
+1. Download [our latest JAR file.](https://github.com/mafagafogigante/java-dungeon/blob/master/dist/java-dungeon.jar?raw=true)
 2. Browse to the directory where you downloaded the file.
 3. Lastly, issue `java -jar java-dungeon.jar`
 
