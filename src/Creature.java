@@ -131,13 +131,17 @@ public class Creature {
     }
 
     public Creature selectTarget(String[] inputWords) {
-        Creature target = null;
         if (inputWords.length == 1) {
             return selectTargetFromList();
         } else {
-            // Handle user-specified target.
+            String targetName = inputWords[1];
+            for (Creature possibleTarget : getLocation().getVisibleCreatures(this)) {
+                if (targetName.compareToIgnoreCase(possibleTarget.getName()) == 0) {
+                    return possibleTarget;
+                }
+            }
         }
-        return target;
+        return null;
     }
 
     /**
