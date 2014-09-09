@@ -48,7 +48,7 @@ public class Game {
 
         // Add enemies to the starting location.
         world.addCreature(new Rat(1), 0);
-        world.addCreature(new Wolf(1), 0);
+        world.addCreature(new Creature(CreatureID.WOLF, 1), 0);
         world.addCreature(new Rabbit(1), 0);
         world.addCreature(new Zombie(1, new Weapon("Pipe", 8, 10)), 0);
         world.addCreature(new Mage(1, new Weapon("Long Staff", 14, 15)), 0);
