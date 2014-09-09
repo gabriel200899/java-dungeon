@@ -23,6 +23,7 @@ Milestones
 - [ ] Implement weapon durability.
 - [ ] Code a world with at least two locations.
 - [ ] Enable commands with two words (such as "get lamp").
+- [ ] Encapsulate input and output.
 
 Trivia
 ------
