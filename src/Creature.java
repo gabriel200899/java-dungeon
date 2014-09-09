@@ -1,5 +1,39 @@
 
+import java.util.List;
+
+
 public class Creature {
+
+    /**
+     * Let the player choose a target to attack.
+     */
+    private Creature selectTargetFromList() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("0. Abort\n");
+        List<Creature> visible = this.getLocation().getVisibleCreatures(this);
+        for (int i = 1; i - 1 < visible.size(); i++) {
+            builder.append(i).append(". ").append(visible.get(i - 1).getName()).append("\n");
+        }
+        System.out.print(builder.toString());
+        int index;
+        while (true) {
+            System.out.print("> ");
+            try {
+                index = Integer.parseInt(Game.sc.nextLine());
+            } catch (NumberFormatException exception) {
+                System.out.println(Game.INVALID_INPUT);
+                continue;
+            }
+            if (0 <= index && index <= visible.size()) {
+                break;
+            }
+            System.out.println(Game.INVALID_INPUT);
+        }
+        if (index == 0) {
+            return null;
+        }
+        return visible.get(index - 1);
+    }
 
     protected int curHealth;
     protected int maxHealth;
@@ -45,6 +79,16 @@ public class Creature {
 
     public int getLevel() {
         return level;
+    }
+    
+    public Creature selectTarget(String[] inputWords) {
+        Creature target = null;
+        if (inputWords.length == 1) {
+            
+        } else {
+            // Handle user-specified target.
+        }
+        return target;
     }
 
     /**

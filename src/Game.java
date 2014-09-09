@@ -143,8 +143,9 @@ public class Game {
                 case "status":
                     player.printStatus();
                     break;
+                case "kill":
                 case "attack":
-                    Creature target = getTarget(player);
+                    Creature target = player.selectTarget(input);
                     if (target != null) {
                         new Battle(player, target);
                         return true;
@@ -161,42 +162,6 @@ public class Game {
                     break;
             }
         }
-    }
-
-    /**
-     * Let the player choose a target to attack.
-     */
-    private static Creature getTarget(Creature player) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("0. Abort\n");
-
-        List<Creature> visible = player.getLocation().getVisibleCreatures(
-                player);
-
-        for (int i = 1; i - 1 < visible.size(); i++) {
-            builder.append(i).append(". ").append(visible.get(i - 1).getName()).append("\n");
-        }
-
-        System.out.print(builder.toString());
-
-        int index;
-        while (true) {
-            System.out.print("> ");
-            try {
-                index = Integer.parseInt(sc.nextLine());
-            } catch (NumberFormatException exception) {
-                System.out.println(INVALID_INPUT);
-                continue;
-            }
-            if (0 <= index && index <= visible.size()) {
-                break;
-            }
-            System.out.println(INVALID_INPUT);
-        }
-        if (index == 0) {
-            return null;
-        }
-        return visible.get(index - 1);
     }
 
     /**
