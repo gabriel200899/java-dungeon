@@ -28,7 +28,7 @@ public class Game {
         World world = demoWorld();
 
         // Make the player character.
-        Mage player = new Mage(1, new Weapon("Stick", 6));
+        Mage player = new Mage(1, new Weapon("Stick", 6, 20));
         player.setName("Seth");
 
         // Add the player to the world's starting location.
@@ -50,11 +50,11 @@ public class Game {
         world.addCreature(new Rat(1), 0);
         world.addCreature(new Wolf(1), 0);
         world.addCreature(new Rabbit(1), 0);
-        world.addCreature(new Zombie(1, new Weapon("Pipe", 8)), 0);
-        world.addCreature(new Mage(1, new Weapon("Long Staff", 14)), 0);
+        world.addCreature(new Zombie(1, new Weapon("Pipe", 8, 10)), 0);
+        world.addCreature(new Mage(1, new Weapon("Long Staff", 14, 15)), 0);
 
         // Add items to the starting location.
-        world.addItem(new Weapon("Longsword", 18), 0);
+        world.addItem(new Weapon("Longsword", 18, 15), 0);
 
         return world;
     }
