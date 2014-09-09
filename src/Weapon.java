@@ -92,6 +92,7 @@ public class Weapon extends Item {
             curIntegrity -= hitDecrement;
         } else {
             curIntegrity = 0;
+            Game.output(getName() + " broke.");
         }
     }
 

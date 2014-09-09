@@ -115,15 +115,11 @@ public class Creature {
      */
     public void attack(Creature target) {
         int hitDamage;
-        if (weapon != null) {
-            // Check if the weapon is broken.
-            if (weapon.isBroken()) {
-                Game.output(weapon.getName() + " is broken");
-                return;
-            }
-            // Check if the attack will miss.
+        // Check that there is a weapon and that it is not broken.
+        if (weapon != null && !weapon.isBroken()) {
+            // Check if the attack is a miss.
             if (weapon.isMiss()) {
-                System.out.printf("%s missed.\n", name);
+                Game.output(name + " missed.");
             } else {
                 hitDamage = weapon.getDamage();
                 target.takeDamage(hitDamage);
@@ -133,7 +129,6 @@ public class Creature {
         } else {
             hitDamage = this.damage;
             target.takeDamage(hitDamage);
-            weapon.decrementIntegrity();
             System.out.printf("%s inflicted %d damage points to %s.\n", name, hitDamage, target.getName());
         }
     }
