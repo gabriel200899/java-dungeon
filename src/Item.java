@@ -1,10 +1,12 @@
 
+import java.io.Serializable;
+
 /**
  * Item class that defines common properties for all items.
  *
  * @author bernardo
  */
-public class Item {
+public class Item implements Serializable {
 
     private String name;
     private final boolean destructible;

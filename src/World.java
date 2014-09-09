@@ -1,16 +1,28 @@
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class World {
+public final class World implements Serializable {
+
+    private final Mage player;
 
     private final List<Location> locations;
     private final SpawnCounter spawnCounter;
 
-    public World(Location startingLocation) {
+    /**
+     * 
+     * @param startingLocation
+     * @param campaignPlayer 
+     */
+    public World(Location startingLocation, Mage campaignPlayer) {
         spawnCounter = new SpawnCounter();
+
         locations = new ArrayList<>();
         locations.add(startingLocation);
+
+        player = campaignPlayer;
+        addCreature(player, 0);
     }
 
     /**
@@ -19,7 +31,7 @@ public class World {
      * @param creature
      * @param locationIndex
      */
-    public void addCreature(Creature creature, int locationIndex) {
+    public final void addCreature(Creature creature, int locationIndex) {
         if (-1 < locationIndex && locationIndex < locations.size()) {
             spawnCounter.incrementCounter(creature.getId());
             locations.get(locationIndex).addCreature(creature);
@@ -37,6 +49,10 @@ public class World {
         if (-1 < locationIndex && locationIndex < locations.size()) {
             locations.get(locationIndex).addItem(item);
         }
+    }
+
+    public Mage getPlayer() {
+        return player;
     }
 
     public Location getLocation(int locationIndex) {

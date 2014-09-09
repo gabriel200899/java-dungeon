@@ -1,7 +1,8 @@
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Creature {
+public class Creature implements Serializable {
 
     protected int curHealth;
     protected int maxHealth;
