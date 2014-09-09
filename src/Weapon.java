@@ -23,7 +23,7 @@ public class Weapon extends Item {
      * @return true if the weapon will miss, false otherwise.
      */
     public final boolean isMiss() {
-        return specs.getMissRate() < Math.random() * 100 + 1;
+        return specs.getMissRate() > Math.random() * 100 + 1;
     }
 
 }
