@@ -76,19 +76,26 @@ public class Creature {
     }
 
     /**
-     * Attack a target. If the creature has a weapon, it will be used to perform the attack. Otherwise, the creature
-     * will attack with its bare hands.
+     * Attack a target. If the creature has a weapon, it will be used to perform
+     * the attack. Otherwise, the creature will attack with its bare hands.
      */
     public void attack(Creature target) {
         int damage;
         if (weapon != null) {
             damage = weapon.getDamage();
+            if (weapon.isMiss()) {
+                target.takeDamage(damage);
+                System.out.printf("%s inflicted %d damage points to %s.\n", name,
+                        damage, target.getName());
+            } else {
+                System.out.printf("%s missed.\n", name);
+            }
         } else {
             damage = attack;
+            target.takeDamage(damage);
+            System.out.printf("%s inflicted %d damage points to %s.\n", name,
+                    damage, target.getName());
         }
-        target.takeDamage(damage);
-        System.out.printf("%s inflicted %d damage points to %s.\n", name,
-                damage, target.getName());
 
     }
 
