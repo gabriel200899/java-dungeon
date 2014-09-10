@@ -1,6 +1,5 @@
 package game;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +12,9 @@ public final class World implements Serializable {
     private final SpawnCounter spawnCounter;
 
     /**
-     * 
+     *
      * @param startingLocation
-     * @param campaignPlayer 
+     * @param campaignPlayer
      */
     public World(Location startingLocation, Mage campaignPlayer) {
         spawnCounter = new SpawnCounter();

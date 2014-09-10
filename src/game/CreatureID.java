@@ -1,6 +1,5 @@
 package game;
 
-
 public enum CreatureID {
 
     BAT("Bat"),
