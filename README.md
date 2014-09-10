@@ -19,8 +19,9 @@ Running the game
 
 Milestones
 ----------
-- [x] Get a modest screenshot on the readme.
-- [ ] Implement weapon durability.
+- [X] Get a modest screenshot on the readme.
+- [X] World serialization.
+- [X] Implement weapon durability.
 - [ ] Code a world with at least two locations.
 - [ ] Enable commands with two words (such as "get lamp").
 - [ ] Encapsulate input and output.
