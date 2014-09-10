@@ -10,7 +10,7 @@ public class Creature implements Serializable {
 
     private final CreatureID id;
 
-    private int damage;
+    private int attack;
     private int level;
 
     private Weapon weapon;
@@ -22,43 +22,43 @@ public class Creature implements Serializable {
                 this.name = "Bat";
                 this.level = level;
                 this.curHealth = this.maxHealth = 12 + 3 * level;
-                this.damage = 5 + 2 * level;
+                this.attack = 5 + 2 * level;
                 break;
             case BEAR:
                 this.name = "Bear";
                 this.level = level;
                 this.curHealth = this.maxHealth = 30 + 10 * level;
-                this.damage = 13 + 7 * level;
+                this.attack = 13 + 7 * level;
                 break;
             case RABBIT:
                 this.name = "Rabbit";
                 this.level = level;
                 this.curHealth = this.maxHealth = 10 + 2 * level;
-                this.damage = 5 + 2 * level;
+                this.attack = 5 + 2 * level;
                 break;
             case RAT:
                 this.name = "Rat";
                 this.level = level;
                 this.curHealth = this.maxHealth = 15 + 5 * level;
-                this.damage = 6 + 4 * level;
+                this.attack = 6 + 4 * level;
                 break;
             case SPIDER:
                 this.name = "Spider";
                 this.level = level;
                 this.curHealth = this.maxHealth = 17 + 8 * level;
-                this.damage = 10 + 5 * level;
+                this.attack = 10 + 5 * level;
                 break;
             case WOLF:
                 this.name = "Wolf";
                 this.level = level;
                 this.curHealth = this.maxHealth = 24 + 6 * level;
-                this.damage = 10 + 4 * level;
+                this.attack = 10 + 4 * level;
                 break;
             case ZOMBIE:
                 this.name = "Zombie";
                 this.level = level;
                 this.curHealth = this.maxHealth = 30 + 6 * level;
-                this.damage = 12 + 4 * level;
+                this.attack = 12 + 4 * level;
                 break;
             default:
                 break;
@@ -66,12 +66,12 @@ public class Creature implements Serializable {
         this.id = id;
     }
 
-    public Creature(String name, int level, int health, int damage, CreatureID id) {
+    public Creature(String name, int level, int health, int attack, CreatureID id) {
         this.name = name;
         this.level = level;
         this.curHealth = health;
         this.maxHealth = health;
-        this.damage = damage;
+        this.attack = attack;
         this.id = id;
     }
 
@@ -146,12 +146,12 @@ public class Creature implements Serializable {
     }
 
     /**
-     * Attack a target. If the creature has a weapon, it will be used to perform the attack. Otherwise, the creature
+     * Try to hit a target. If the creature has a weapon, it will be used to perform the attack. Otherwise, the creature
      * will attack with its bare hands.
      *
      * @param target
      */
-    public void attack(Creature target) {
+    public void hit(Creature target) {
         int hitDamage;
         // Check that there is a weapon and that it is not broken.
         if (weapon != null && !weapon.isBroken()) {
@@ -165,7 +165,7 @@ public class Creature implements Serializable {
                 System.out.printf("%s inflicted %d damage points to %s.\n", name, hitDamage, target.getName());
             }
         } else {
-            hitDamage = this.damage;
+            hitDamage = this.attack;
             target.takeDamage(hitDamage);
             System.out.printf("%s inflicted %d damage points to %s.\n", name, hitDamage, target.getName());
         }
@@ -224,7 +224,7 @@ public class Creature implements Serializable {
         builder.append(String.format("  %-20s%10d\n", "Level", level));
         builder.append(String.format("  %-20s%10s\n", "Health",
                 String.format("%d/%d", curHealth, maxHealth)));
-        builder.append(String.format("  %-20s%10d\n", "Attack", damage));
+        builder.append(String.format("  %-20s%10d\n", "Attack", attack));
         if (weapon != null) {
             builder.append(String.format("  %-20s%10s\n", "Weapon", weapon.getName()));
             builder.append(String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage()));

@@ -2,9 +2,9 @@
 import java.util.List;
 
 /**
- * Mage class that implements the only Playable creature until now.
+ * Mage class that is the only playable creature now.
  */
-public class Mage extends Creature implements Playable {
+public class Mage extends Creature {
 
     private static final String name = "Mage";
 
@@ -21,7 +21,6 @@ public class Mage extends Creature implements Playable {
      * Rest until the creature is completely healed.
      */
     // TODO: implement time system and make the rest time have some impact on the game.
-    @Override
     public void rest() {
         curHealth = maxHealth;
         System.out.println("You are completely rested.");
@@ -30,7 +29,6 @@ public class Mage extends Creature implements Playable {
     /**
      * Print the name of the player's current location and list all creatures and items the player can see.
      */
-    @Override
     public void look() {
         // Should this raise an exception?
         if (getLocation() == null) {
@@ -88,7 +86,6 @@ public class Mage extends Creature implements Playable {
     /**
      *
      */
-    @Override
     public void lootWeapon() {
         List<Weapon> visibleWeapons = getLocation().getVisibleWeapons();
         int selectedIndex = selectWeapon(visibleWeapons);
@@ -103,7 +100,6 @@ public class Mage extends Creature implements Playable {
     /**
      * Tries to destroy an item from the current location.
      */
-    @Override
     public void destroyItem() {
         // TODO implement this.
     }

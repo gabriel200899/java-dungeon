@@ -19,7 +19,7 @@ public class Help {
             + "      spawns                 Get the spawn counters.";
 
     public static void printCommandList() {
-        System.out.println(COMMAND_LIST);
+        Game.writeString(COMMAND_LIST);
     }
 
 }

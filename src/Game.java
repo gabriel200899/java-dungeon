@@ -228,9 +228,9 @@ public class Game {
      */
     private static void battle(Creature attacker, Creature defender) {
         while (attacker.isAlive() && defender.isAlive()) {
-            attacker.attack(defender);
+            attacker.hit(defender);
             if (defender.isAlive()) {
-                defender.attack(attacker);
+                defender.hit(attacker);
             }
         }
         String survivor, defeated;
