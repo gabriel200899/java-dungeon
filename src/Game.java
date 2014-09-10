@@ -117,10 +117,13 @@ public class Game {
         World world = new World(new Location("Training Grounds"), player);
 
         // Add enemies to the starting location.
-        world.addCreature(new Rat(1), 0);
+        world.addCreature(new Creature(CreatureID.BAT, 1), 0);
+        world.addCreature(new Creature(CreatureID.BEAR, 1), 0);
+        world.addCreature(new Creature(CreatureID.RABBIT, 1), 0);
+        world.addCreature(new Creature(CreatureID.RAT, 1), 0);
+        world.addCreature(new Creature(CreatureID.SPIDER, 1), 0);
         world.addCreature(new Creature(CreatureID.WOLF, 1), 0);
-        world.addCreature(new Rabbit(1), 0);
-        world.addCreature(new Zombie(1, new Weapon("Pipe", 8, 10)), 0);
+        world.addCreature(new Creature(CreatureID.ZOMBIE, 1), 0);
         world.addCreature(new Mage(1, new Weapon("Long Staff", 14, 15)), 0);
 
         // Add items to the starting location.
