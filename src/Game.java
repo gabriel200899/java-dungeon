@@ -30,14 +30,16 @@ public class Game {
 
     public static final String INVALID_INPUT = "Invalid input.";
 
-    public static final String LINE = "--------------------------------------------------------------------------------";
+    // Two 75-character long strings used to improve readability
+    public static final String LINE_1 = "---------------------------------------------------------------------------";
+    public static final String LINE_2 = "===========================================================================";
 
     public static void main(String[] args) {
         World world;
         // Check if the user wants to try to load an existing world.
         if (promptAttemptToLoad()) {
             // Attempt to load a serialized World object. If it fails, generate a new world.
-             world = loadWorld();
+            world = loadWorld();
         } else {
             world = demoWorld();
         }
@@ -45,9 +47,10 @@ public class Game {
         // Enter the loop with the world created.
         gameLoop(world);
     }
-    
+
     /**
      * Prompts the user if he/she wants to attempt to load a serialized World object.
+     *
      * @return true if the answer was positive, false otherwise.
      */
     private static boolean promptAttemptToLoad() {
@@ -109,7 +112,7 @@ public class Game {
         // Make the player character.
         Mage player = new Mage(1, new Weapon("Stick", 6, 20));
         player.setName("Seth");
-        
+
         // Create a new world.
         World world = new World(new Location("Training Grounds"), player);
 
@@ -119,35 +122,11 @@ public class Game {
         world.addCreature(new Rabbit(1), 0);
         world.addCreature(new Zombie(1, new Weapon("Pipe", 8, 10)), 0);
         world.addCreature(new Mage(1, new Weapon("Long Staff", 14, 15)), 0);
-        
+
         // Add items to the starting location.
         world.addItem(new Weapon("Longsword", 18, 15), 0);
 
         return world;
-    }
-
-    private static void printHeading() {
-        StringBuilder heading = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
-            heading.append(' ');
-        }
-        for (int i = 0; i < 70; i++) {
-            heading.append('=');
-        }
-        heading.append('\n');
-        for (int i = 0; i < 37; i++) {
-            heading.append(' ');
-        }
-        heading.append(TITLE);
-        heading.append('\n');
-        for (int i = 0; i < 5; i++) {
-            heading.append(' ');
-        }
-        for (int i = 0; i < 70; i++) {
-            heading.append('=');
-        }
-        heading.append('\n');
-        System.out.print(heading.toString());
     }
 
     /**
@@ -155,7 +134,11 @@ public class Game {
      */
     private static void gameLoop(World world) {
         // Print the game heading.
-        printHeading();
+        Game.writeString(LINE_2);
+        Game.writeString(TITLE);
+        Game.writeString(LINE_2);
+
+        // Enter the main game loop.
         while (true) {
             // getTurn returns true if the Player did not issue an exit command.
             if (getTurn(world)) {
@@ -272,6 +255,11 @@ public class Game {
         System.out.println(DATE.format(new Date()));
     }
 
+    /**
+     * Read a string from the user.
+     *
+     * @return
+     */
     public static String readString() {
         String line;
         do {
