@@ -40,7 +40,7 @@ public class Mage extends Creature implements Playable {
         // The location's name.
         builder.append(getLocation().getName());
         // All visible creatures.
-        builder.append('\n').append(Game.LINE).append('\n');
+        builder.append('\n').append(Game.LINE_1).append('\n');
         String creatures = lookCreatures();
         if (!creatures.isEmpty()) {
             builder.append(creatures);
@@ -48,14 +48,14 @@ public class Mage extends Creature implements Playable {
             builder.append("You do not see any creatures here.");
         }
         // All visible items.
-        builder.append('\n').append(Game.LINE).append('\n');
+        builder.append('\n').append(Game.LINE_1).append('\n');
         String items = lookItems();
         if (!items.isEmpty()) {
             builder.append(items);
         } else {
             builder.append("You do not see any items here.");
         }
-        builder.append('\n').append(Game.LINE);
+        builder.append('\n').append(Game.LINE_1);
         System.out.println(builder.toString());
     }
 
