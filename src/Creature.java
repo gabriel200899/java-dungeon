@@ -18,11 +18,48 @@ public class Creature implements Serializable {
 
     public Creature(CreatureID id, int level) {
         switch (id) {
+            case BAT:
+                this.name = "Bat";
+                this.level = level;
+                this.curHealth = this.maxHealth = 12 + 3 * level;
+                this.damage = 5 + 2 * level;
+                break;
+            case BEAR:
+                this.name = "Bear";
+                this.level = level;
+                this.curHealth = this.maxHealth = 30 + 10 * level;
+                this.damage = 13 + 7 * level;
+                break;
+            case RABBIT:
+                this.name = "Rabbit";
+                this.level = level;
+                this.curHealth = this.maxHealth = 10 + 2 * level;
+                this.damage = 5 + 2 * level;
+                break;
+            case RAT:
+                this.name = "Rat";
+                this.level = level;
+                this.curHealth = this.maxHealth = 15 + 5 * level;
+                this.damage = 6 + 4 * level;
+                break;
+            case SPIDER:
+                this.name = "Spider";
+                this.level = level;
+                this.curHealth = this.maxHealth = 17 + 8 * level;
+                this.damage = 10 + 5 * level;
+                break;
             case WOLF:
                 this.name = "Wolf";
                 this.level = level;
-                this.curHealth = this.maxHealth = 25 + 5 * level;
-                this.damage = 10 + 3 * level;
+                this.curHealth = this.maxHealth = 24 + 6 * level;
+                this.damage = 10 + 4 * level;
+                break;
+            case ZOMBIE:
+                this.name = "Zombie";
+                this.level = level;
+                this.curHealth = this.maxHealth = 30 + 6 * level;
+                this.damage = 12 + 4 * level;
+                break;
             default:
                 break;
         }
@@ -198,28 +235,3 @@ public class Creature implements Serializable {
     }
 
 }
-
-//Rat
-//HP:20
-//Attack:5-10
-//Info: A disgusting rodent with sharp teeth that allows it to pierce its opponent.
-//
-//Bat
-//HP:15
-//Attack:5-10
-//Info: A wild bloody mammal that hits its targets with a strong bite.
-//
-//Bear
-//HP:40
-//Attack:15-25
-//Info: A great furious bear with big claws that can slash its targets.
-//
-//Spider
-//HP:25
-//Attack:10-20
-//Info: A scaring arachnid with strong fangs capable to cause serious scars.
-//
-//Wolf
-//HP:30
-//Attack:5-15
-//Info: A sanguinary beast with cutting preys able to flench everyone on his front.

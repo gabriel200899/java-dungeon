@@ -4,7 +4,7 @@
  */
 public enum CreatureID {
 
-    UNKNOWN("Unknown"), WOLF("Wolf"), RABBIT("Rabbit"), RAT("Rat"), ZOMBIE("Zombie"), MAGE("Mage");
+    BAT("Bat"), BEAR("Bear"), MAGE("Mage"), RABBIT("Rabbit"), RAT("Rat"), SPIDER("Spider"), UNKNOWN("Unknown"), WOLF("Wolf"), ZOMBIE("Zombie");
 
     private final String stringRepresentation;
 
