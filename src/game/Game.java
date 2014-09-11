@@ -30,7 +30,7 @@ public class Game {
 
     // Two 79-character long strings used to improve readability.
     public static final String LINE_1 = Utils.makeRepeatedCharacterString(79, '-');
-    public static final String LINE_2 = Utils.makeRepeatedCharacterString(90, '=');
+    public static final String LINE_2 = Utils.makeRepeatedCharacterString(79, '=');
 
     public static void main(String[] args) {
         World world;
