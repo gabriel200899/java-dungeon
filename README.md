@@ -17,14 +17,13 @@ Running the game
 3. Lastly, issue `java -jar java-dungeon.jar`
 
 
-Milestones
-----------
-- [X] Get a modest screenshot on the readme.
-- [X] World serialization.
-- [X] Implement weapon durability.
-- [ ] Code a world with at least two locations.
-- [ ] Enable commands with two words (such as "get lamp").
-- [ ] Encapsulate input and output.
+TODO
+----
+* Documentation, documentation, documentation...
+* Create a second location and implement walking
+* Implement get \<name of item\>
+* Substitute ALL occurences of System.out.print*(x) by Game.writeString(x)
+
 
 Trivia
 ------
@@ -33,7 +32,8 @@ This project started on 04/09/2014 (dd/mm/yyyy).
 
 Code Style
 ----------
-* Stick to 120 (or less) characters per line.
+* Stick to 120 characters per line.
+* Strive for simplicity and readability.
 * Final variables and enumeration constants should be UPPERCASE.
 
 
