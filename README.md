@@ -32,7 +32,8 @@ This project started on 04/09/2014 (dd/mm/yyyy).
 
 Code Style
 ----------
-* Stick to 120 (or less) characters per line.
+* Stick to 120 characters per line.
+* Strive for simplicity and readability.
 * Final variables and enumeration constants should be UPPERCASE.
 
 
