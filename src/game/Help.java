@@ -9,7 +9,7 @@ public class Help {
             = "  Command List\n"
             + "    Exploration\n"
             + "      look                   Looks around, describing what the player sees.\n"
-            + "      status                 Printrs the player's character curent status.\n"
+            + "      status                 Prints the player's character curent status.\n"
             + "      pick                   Pick a weapon on the ground and equip it.\n"
             + "      rest                   Fills your health points.\n"
             + "    Combat\n"
