@@ -17,14 +17,13 @@ Running the game
 3. Lastly, issue `java -jar java-dungeon.jar`
 
 
-Milestones
-----------
-- [X] Get a modest screenshot on the readme.
-- [X] World serialization.
-- [X] Implement weapon durability.
-- [ ] Code a world with at least two locations.
-- [ ] Enable commands with two words (such as "get lamp").
-- [ ] Encapsulate input and output.
+TODO
+----
+* Documentation, documentation, documentation...
+* Create a second location and implement walking
+* Implement get \<name of item\>
+* Substitute ALL occurences of System.out.print*(x) by Game.writeString(x)
+
 
 Trivia
 ------
