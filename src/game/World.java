@@ -66,7 +66,7 @@ public final class World implements Serializable {
 
     public void removeAllDead() {
         for (Location worldLocation : locations) {
-            worldLocation.removeDead();
+            worldLocation.removeAllDeadCreatures();
         }
     }
 

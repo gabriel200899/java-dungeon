@@ -36,15 +36,12 @@ public class Location implements Serializable {
     /**
      * Remove all dead creatures in the current location.
      */
-    public void removeDead() {
+    public void removeAllDeadCreatures() {
         // To safely remove from a collection we must use an iterator.
         Iterator<Creature> i = creatures.iterator();
         while (i.hasNext()) {
             Creature creature = i.next();
             if (!creature.isAlive()) {
-                if (!creature.isEmpty()) {
-                    items.add(creature.getWeapon());
-                }
                 i.remove();
             }
         }

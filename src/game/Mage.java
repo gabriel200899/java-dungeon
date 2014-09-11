@@ -15,7 +15,7 @@ public class Mage extends Creature {
 
     public Mage(int level, Weapon weapon) {
         super(name, level, 40 + 8 * level, 4 + 2 * level, CreatureID.MAGE);
-        equipWeapon(weapon);
+        setWeapon(weapon);
     }
 
     /**
@@ -85,9 +85,9 @@ public class Mage extends Creature {
     }
 
     /**
-     *
+     * Picks a weapon from the ground.
      */
-    public void lootWeapon() {
+    public void pickWeapon() {
         List<Weapon> visibleWeapons = getLocation().getVisibleWeapons();
         int selectedIndex = selectWeapon(visibleWeapons);
         if (selectedIndex != -1) {

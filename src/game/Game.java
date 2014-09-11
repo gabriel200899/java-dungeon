@@ -182,7 +182,7 @@ public class Game {
                     break;
                 case "loot":
                 case "pick":
-                    world.getPlayer().lootWeapon();
+                    world.getPlayer().pickWeapon();
                     break;
                 case "destroy":
                     world.getPlayer().destroyItem();

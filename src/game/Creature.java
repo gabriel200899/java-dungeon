@@ -97,21 +97,12 @@ public class Creature implements Serializable {
         return curHealth > 0;
     }
 
-    /**
-     * Check if the creature has no loot.
-     *
-     * @return
-     */
-    public boolean isEmpty() {
-        return weapon == null;
-    }
-
-    public boolean isLootable() {
-        return (!isEmpty() && !isAlive());
-    }
-
     public Weapon getWeapon() {
         return weapon;
+    }
+
+    public void setWeapon(Weapon weapon) {
+        this.weapon = weapon;
     }
 
     /**
@@ -119,11 +110,13 @@ public class Creature implements Serializable {
      */
     public void dropWeapon() {
         location.addItem(weapon);
+        Game.writeString(name + " dropped " + weapon.getName() + ".");
         weapon = null;
     }
 
     public void equipWeapon(Weapon weapon) {
         this.weapon = weapon;
+        Game.writeString(name + " equipped " + weapon.getName() + ".");
     }
 
     public Location getLocation() {
