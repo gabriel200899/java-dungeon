@@ -5,11 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Random;
 import java.util.Scanner;
+import utils.Utils;
 
 public class Game {
 
@@ -18,10 +16,6 @@ public class Game {
     private static final String DEMO_WORLD_PATH = "demoWorld.jdsave";
 
     private static final String SAVE_WORLD_ERROR = "Could not save the current world.";
-
-    // DateFormats for time and date printing.
-    private static final DateFormat TIME = new SimpleDateFormat("HH:mm:ss");
-    private static final DateFormat DATE = new SimpleDateFormat("dd/MM/yyyy");
 
     // The Scanner the method Game.readString() uses.
     public static final Scanner SCANNER = new Scanner(System.in);
@@ -34,9 +28,9 @@ public class Game {
      */
     public static final String INVALID_INPUT = "Invalid input.";
 
-    // Two 75-character long strings used to improve readability
-    public static final String LINE_1 = "---------------------------------------------------------------------------";
-    public static final String LINE_2 = "===========================================================================";
+    // Two 79-character long strings used to improve readability.
+    public static final String LINE_1 = Utils.makeRepeatedCharacterString(79, '-');
+    public static final String LINE_2 = Utils.makeRepeatedCharacterString(90, '=');
 
     public static void main(String[] args) {
         World world;
@@ -172,16 +166,13 @@ public class Game {
     private static boolean getTurn(World world) {
         String[] input;
         while (true) {
-            System.out.print("> ");
-            // Get the next line of input, convert it to lowercase, trim its endings and split it into separate words.
-            input = SCANNER.nextLine().toLowerCase().trim().split("\\s+");
-            // Currently, we only use the first word.
-            switch (input[0]) {
+            input = Game.readWords();
+            switch (input[0].toLowerCase()) {
                 case "time":
-                    printTime();
+                    Utils.printTime();
                     break;
                 case "date":
-                    printDate();
+                    Utils.printDate();
                     break;
                 case "spawns":
                     world.printSpawnCounters();
@@ -235,7 +226,7 @@ public class Game {
     }
 
     private static void printInvalidCommandMessage(String command) {
-        Game.writeString(command + " is not a valid command. See 'commands' for a complete list of valid commands.");
+        Game.writeString(command + " is not a valid command.\nSee 'commands' for a list of valid commands.");
     }
 
     /**
@@ -263,21 +254,16 @@ public class Game {
     }
 
     /**
-     * Print the current time according to the final SimpleDateFormat TIME.
+     * Read a line of input from the user and returns an array with the words in that line.
+     *
+     * @return a String array.
      */
-    private static void printTime() {
-        System.out.println(TIME.format(new Date()));
+    public static String[] readWords() {
+        return readString().split("\\s+");
     }
 
     /**
-     * Print the current date according to the final SimpleDateFormat DATE.
-     */
-    private static void printDate() {
-        System.out.println(DATE.format(new Date()));
-    }
-
-    /**
-     * Read a string from the user.
+     * Read a line of input from the user.
      *
      * @return
      */
@@ -285,7 +271,7 @@ public class Game {
         String line;
         do {
             System.out.print("> ");
-            line = SCANNER.nextLine();
+            line = SCANNER.nextLine().trim();
         } while (line.equals(""));
         return line;
     }
