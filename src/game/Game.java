@@ -1,13 +1,11 @@
 package game;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import help.Help;
+import utils.Utils;
+
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
-import utils.Utils;
 
 public class Game {
 
@@ -160,7 +158,6 @@ public class Game {
      * Let the player play a turn. Many actions are not considered a turn (e.g.: look).
      *
      * @param world
-     * @param player
      * @return false if the player issued an exit command. True if the player played a turn.
      */
     private static boolean getTurn(World world) {
@@ -174,10 +171,14 @@ public class Game {
                 case "date":
                     Utils.printDate();
                     break;
+                case "drop":
+                    world.getPlayer().dropWeapon();
+                    break;
                 case "spawns":
                     world.printSpawnCounters();
                     break;
                 case "look":
+                case "peek":
                     world.getPlayer().look();
                     break;
                 case "loot":
@@ -204,7 +205,8 @@ public class Game {
                     }
                     return true;
                 case "help":
-                    Help.printHelpText(input);
+                case "?":
+                    Help.printCommandHelp(input);
                     break;
                 case "commands":
                     Help.printCommandList();

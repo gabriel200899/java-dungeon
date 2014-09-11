@@ -20,7 +20,6 @@ public class Weapon extends Item implements Serializable {
     private int maxIntegrity;
     private int curIntegrity;
     // How much integrity is lost per hit.
-    // Frask  adsf 
     private int hitDecrement;
 
     public Weapon(String name, int damage) {

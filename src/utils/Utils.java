@@ -1,6 +1,7 @@
 package utils;
 
 import game.Game;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,11 +32,7 @@ public class Utils {
     }
 
     /**
-     * Creates a string of a repeating character.
-     *
-     * @param repetitions the length of the string.
-     * @param character the character to be used.
-     * @return a String.
+     * Creates a string of repeated characters.
      */
     public static String makeRepeatedCharacterString(int repetitions, char character) {
         StringBuilder builder = new StringBuilder();

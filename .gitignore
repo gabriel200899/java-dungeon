@@ -28,3 +28,5 @@ nb-configuration.xml
 ### Game Files ###
 *.jdsave
 
+### JetBrains ###
+.idea/workspace.xml

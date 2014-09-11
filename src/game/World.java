@@ -12,7 +12,6 @@ public final class World implements Serializable {
     private final SpawnCounter spawnCounter;
 
     /**
-     *
      * @param startingLocation
      * @param campaignPlayer
      */

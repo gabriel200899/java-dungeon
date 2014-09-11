@@ -109,9 +109,13 @@ public class Creature implements Serializable {
      * Disarm the creature. Placing its current weapon, if any, in the ground.
      */
     public void dropWeapon() {
-        location.addItem(weapon);
-        Game.writeString(name + " dropped " + weapon.getName() + ".");
-        weapon = null;
+        if (weapon != null) {
+            location.addItem(weapon);
+            Game.writeString(name + " dropped " + weapon.getName() + ".");
+            weapon = null;
+        } else {
+            Game.writeString("You are not currently carrying a weapon.");
+        }
     }
 
     public void equipWeapon(Weapon weapon) {

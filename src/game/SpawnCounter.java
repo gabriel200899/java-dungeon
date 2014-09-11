@@ -6,10 +6,10 @@ import java.util.HashMap;
 /**
  * SpawnCounter class that is used by a World object to count its spawns.
  */
-public class SpawnCounter implements Serializable {
+class SpawnCounter implements Serializable {
 
     private static final String EMPTY_SPAWN_COUNTER = "The spawn counter is empty.";
-    HashMap<CreatureID, Integer> counters;
+    private HashMap<CreatureID, Integer> counters;
 
     public SpawnCounter() {
         counters = new HashMap<>();
