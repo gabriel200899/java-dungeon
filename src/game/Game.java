@@ -29,6 +29,9 @@ public class Game {
     // The Random object used to control random events.
     public static final Random RANDOM = new Random();
 
+    /**
+     * The string used to alert the player about invalid input.
+     */
     public static final String INVALID_INPUT = "Invalid input.";
 
     // Two 75-character long strings used to improve readability
@@ -187,6 +190,7 @@ public class Game {
                     world.getPlayer().look();
                     break;
                 case "loot":
+                case "pick":
                     world.getPlayer().lootWeapon();
                     break;
                 case "destroy":
@@ -209,16 +213,29 @@ public class Game {
                     }
                     return true;
                 case "help":
+                    Help.printHelpText(input);
+                    break;
+                case "commands":
                     Help.printCommandList();
                     break;
                 case "quit":
                 case "exit":
                     return false;
                 default:
-                    System.out.println(INVALID_INPUT);
+                    // The user issued a command, but it was not recognized.
+                    if (!input[0].isEmpty()) {
+                        printInvalidCommandMessage(input[0]);
+                    } else {
+                        // The user just pressed Enter.
+                        Game.writeString(INVALID_INPUT);
+                    }
                     break;
             }
         }
+    }
+
+    private static void printInvalidCommandMessage(String command) {
+        Game.writeString(command + " is not a valid command. See 'commands' for a complete list of valid commands.");
     }
 
     /**

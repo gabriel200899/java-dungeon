@@ -19,6 +19,22 @@ public class Help {
             + "      quit                   Exit the game.\n"
             + "      spawns                 Get the spawn counters.";
 
+    // The correct usage of printHelp.
+    public static final String PRINT_HELP_TEXT_USAGE = "  Usage: help (command)";
+    
+    /**
+     * Print the proper help string based on the specifiers.
+     * @param specifiers 
+     */
+    public static void printHelpText(String[] specifiers) {
+        if (specifiers.length == 1) {
+            // There are no specifiers, report the correct usage of this method.
+            Game.writeString(PRINT_HELP_TEXT_USAGE);
+        } else {
+            
+        }
+    }
+    
     public static void printCommandList() {
         Game.writeString(COMMAND_LIST);
     }
