@@ -233,9 +233,6 @@ public class Game {
 
     /**
      * Simulates a battle between two creatures.
-     *
-     * @param attacker
-     * @param defender
      */
     private static void battle(Creature attacker, Creature defender) {
         while (attacker.isAlive() && defender.isAlive()) {
@@ -244,15 +241,25 @@ public class Game {
                 defender.hit(attacker);
             }
         }
-        String survivor, defeated;
+        Creature survivor;
+        Creature defeated;
         if (attacker.isAlive()) {
-            survivor = attacker.getName();
-            defeated = defender.getName();
+            survivor = attacker;
+            defeated = defender;
         } else {
-            survivor = defender.getName();
-            defeated = attacker.getName();
+            survivor = defender;
+            defeated = attacker;
         }
-        System.out.printf("%s managed to kill %s.\n", survivor, defeated);
+        System.out.printf("%s managed to kill %s.\n", survivor.getName(), defeated.getName());
+        aftermath(survivor, defeated);
+    }
+
+    /**
+     * Add the the surviving creature the gold and experience the defeated had.
+     */
+    private static void aftermath(Creature survivor, Creature defeated) {
+        survivor.addExperience(defeated.getExperienceDrop());
+        survivor.addGold(defeated.getGold());
     }
 
     /**

@@ -116,4 +116,13 @@ public class Weapon extends Item implements Serializable {
         curIntegrity = maxIntegrity;
     }
 
+    public final String getStatusString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(String.format("  %-20s%10s\n", "Weapon", getName()));
+        builder.append(String.format("  %-20s%10s\n", "Weapon damage", getDamage()));
+        builder.append(String.format("  %-20s%10s\n", "Weapon integrity",
+                String.format("%d/%d", getCurIntegrity(), getMaxIntegrity())));
+        return builder.toString();
+    }
+
 }

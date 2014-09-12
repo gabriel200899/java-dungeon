@@ -10,6 +10,7 @@ public class Creature implements Serializable {
 
     private int level;
     private int experience;
+    private int experienceDrop;
 
     private int gold;
 
@@ -26,42 +27,49 @@ public class Creature implements Serializable {
             case BAT:
                 this.name = "Bat";
                 this.level = level;
+                this.experienceDrop = level * level * 15;
                 this.curHealth = this.maxHealth = 12 + 3 * level;
                 this.attack = 5 + 2 * level;
                 break;
             case BEAR:
                 this.name = "Bear";
                 this.level = level;
+                this.experienceDrop = level * level * 40;
                 this.curHealth = this.maxHealth = 30 + 10 * level;
                 this.attack = 13 + 7 * level;
                 break;
             case RABBIT:
                 this.name = "Rabbit";
                 this.level = level;
+                this.experienceDrop = level * level * 5;
                 this.curHealth = this.maxHealth = 10 + 2 * level;
                 this.attack = 5 + 2 * level;
                 break;
             case RAT:
                 this.name = "Rat";
                 this.level = level;
+                this.experienceDrop = level * level * 10;
                 this.curHealth = this.maxHealth = 15 + 5 * level;
                 this.attack = 6 + 4 * level;
                 break;
             case SPIDER:
                 this.name = "Spider";
                 this.level = level;
+                this.experienceDrop = level * level * 10;
                 this.curHealth = this.maxHealth = 17 + 8 * level;
                 this.attack = 10 + 5 * level;
                 break;
             case WOLF:
                 this.name = "Wolf";
                 this.level = level;
+                this.experienceDrop = level * level * 15;
                 this.curHealth = this.maxHealth = 24 + 6 * level;
                 this.attack = 10 + 4 * level;
                 break;
             case ZOMBIE:
                 this.name = "Zombie";
                 this.level = level;
+                this.experienceDrop = level * level * 20;
                 this.curHealth = this.maxHealth = 30 + 6 * level;
                 this.attack = 12 + 4 * level;
                 break;
@@ -100,20 +108,31 @@ public class Creature implements Serializable {
         return experience;
     }
 
+    public int getExperienceDrop() {
+        return experienceDrop;
+    }
+
+    public int getExperienceToNextLevel() {
+        return level * level * 100;
+    }
+
     public void setExperience(int experience) {
         this.experience = experience;
     }
 
     public void addExperience(int amount) {
         this.experience += amount;
-        levelUp();
+        Game.writeString(name + " got " + amount + " experience points.");
+        if (this.experience >= getExperienceToNextLevel()) {
+            levelUp();
+        }
 
     }
 
     public void levelUp() {
         if (experience >= level * level * 100) {
-            Game.writeString(String.format("%s leveld up. %s is now level %d", name, name, level));
             this.level++;
+            Game.writeString(String.format("%s leveld up. %s is now level %d", name, name, level));
         }
     }
 
@@ -130,6 +149,7 @@ public class Creature implements Serializable {
     public void addGold(int amount) {
         if (amount > 0) {
             this.gold += amount;
+            Game.writeString(name + " got " + amount + " gold coins.");
         }
     }
 
@@ -298,15 +318,14 @@ public class Creature implements Serializable {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("  %s (%s)\n", name, this.id));
         builder.append(String.format("  %-20s%10d\n", "Level", level));
+        builder.append(String.format("  %-20s%10s\n", "Experience",
+                String.format("%d/%d", experience, getExperienceToNextLevel())));
         builder.append(String.format("  %-20s%10d\n", "Gold", gold));
         builder.append(String.format("  %-20s%10s\n", "Health",
                 String.format("%d/%d", curHealth, maxHealth)));
         builder.append(String.format("  %-20s%10d\n", "Attack", attack));
         if (weapon != null) {
-            builder.append(String.format("  %-20s%10s\n", "Weapon", weapon.getName()));
-            builder.append(String.format("  %-20s%10s\n", "Weapon damage", weapon.getDamage()));
-            builder.append(String.format("  %-20s%10s\n", "Weapon integrity",
-                    String.format("%d/%d", weapon.getCurIntegrity(), weapon.getMaxIntegrity())));
+            builder.append(weapon.getStatusString());
         }
         Game.writeString(builder.toString());
     }
