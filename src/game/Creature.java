@@ -104,8 +104,46 @@ public class Creature implements Serializable {
         this.experience = experience;
     }
 
+    public void addExperience(int amount) {
+        this.experience += amount;
+        levelUp();
+
+    }
+
+    public void levelUp() {
+        if (experience >= level * level * 100) {
+            Game.writeString(String.format("%s leveld up. %s is now level %d", name, name, level));
+            this.level++;
+        }
+    }
+
     public int getGold() {
         return gold;
+    }
+
+    public void setGold(int gold) {
+        if (this.gold < 0) {
+            this.gold = 0;
+        }
+    }
+
+    public void addGold(int amount) {
+        if (amount > 0) {
+            this.gold += amount;
+        }
+    }
+
+    /**
+     * Reduces the creature gold by a given amount.
+     *
+     * Gold will never become negative, so you should check that the creature has enough gold before subtracting any.
+     */
+    public void subtractGold(int amount) {
+        if (this.gold - amount > 0) {
+            this.gold = this.gold - amount;
+        } else {
+            this.gold = 0;
+        }
     }
 
     public int getMaxHealth() {
@@ -124,26 +162,6 @@ public class Creature implements Serializable {
         this.curHealth = curHealth;
     }
 
-    public int getAttack() {
-        return attack;
-    }
-
-    public void setAttack(int attack) {
-        this.attack = attack;
-    }
-
-    public void setGold(int gold) {
-        if (gold < 0) {
-            gold = 0;
-        }
-    }
-
-    public void addGold(int amount) {
-        if (amount > 0) {
-            this.gold += amount;
-        }
-    }
-
     /**
      * Check if the creature is alive.
      *
@@ -151,6 +169,14 @@ public class Creature implements Serializable {
      */
     public boolean isAlive() {
         return curHealth > 0;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 
     public Weapon getWeapon() {
@@ -187,14 +213,6 @@ public class Creature implements Serializable {
         this.location = location;
     }
 
-    private void takeDamage(int damage) {
-        if (damage > curHealth) {
-            curHealth = 0;
-        } else {
-            curHealth -= damage;
-        }
-    }
-
     /**
      * Try to hit a target. If the creature has a weapon, it will be used to perform the attack. Otherwise, the creature
      * will attack with its bare hands.
@@ -218,6 +236,14 @@ public class Creature implements Serializable {
             hitDamage = this.attack;
             target.takeDamage(hitDamage);
             System.out.printf("%s inflicted %d damage points to %s.\n", name, hitDamage, target.getName());
+        }
+    }
+
+    private void takeDamage(int damage) {
+        if (damage > curHealth) {
+            curHealth = 0;
+        } else {
+            curHealth -= damage;
         }
     }
 
