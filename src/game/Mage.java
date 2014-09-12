@@ -23,7 +23,7 @@ public class Mage extends Creature {
      */
     // TODO: implement time system and make the rest time have some impact on the game.
     public void rest() {
-        curHealth = maxHealth;
+        setCurHealth(getMaxHealth());
         System.out.println("You are completely rested.");
     }
 

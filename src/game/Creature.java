@@ -5,14 +5,18 @@ import java.util.List;
 
 public class Creature implements Serializable {
 
-    protected int curHealth;
-    protected int maxHealth;
+    private final CreatureID id;
     private String name;
 
-    private final CreatureID id;
+    private int level;
+    private int experience;
+
+    private int gold;
+
+    private int maxHealth;
+    private int curHealth;
 
     private int attack;
-    private int level;
 
     private Weapon weapon;
     private Location location;
@@ -76,6 +80,10 @@ public class Creature implements Serializable {
         this.id = id;
     }
 
+    public CreatureID getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -86,6 +94,54 @@ public class Creature implements Serializable {
 
     public int getLevel() {
         return level;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
+    public int getCurHealth() {
+        return curHealth;
+    }
+
+    public void setCurHealth(int curHealth) {
+        this.curHealth = curHealth;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public void setGold(int gold) {
+        if (gold < 0) {
+            gold = 0;
+        }
+    }
+
+    public void addGold(int amount) {
+        if (amount > 0) {
+            this.gold += amount;
+        }
     }
 
     /**
@@ -137,10 +193,6 @@ public class Creature implements Serializable {
         } else {
             curHealth -= damage;
         }
-    }
-
-    public CreatureID getId() {
-        return id;
     }
 
     /**
@@ -220,6 +272,7 @@ public class Creature implements Serializable {
         StringBuilder builder = new StringBuilder();
         builder.append(String.format("  %s (%s)\n", name, this.id));
         builder.append(String.format("  %-20s%10d\n", "Level", level));
+        builder.append(String.format("  %-20s%10d\n", "Gold", gold));
         builder.append(String.format("  %-20s%10s\n", "Health",
                 String.format("%d/%d", curHealth, maxHealth)));
         builder.append(String.format("  %-20s%10d\n", "Attack", attack));
